@@ -92,8 +92,15 @@ Pod::Spec.new do |s|
 
   # s.public_header_files = "Classes/SJUIFactoryHeader.h"
   s.source_files  = "Classes/*.{h,m}"
+
   s.subspec 'Worker' do |ss|
-    ss.source_files = 'Classes/Worker/*.{h,m}'
+    ss.subspec 'Controller' do |sss|
+        sss.source_files = "Classes/Worker/Controller/*.{h,m}"
+    end
+
+    ss.subspec 'View' do |sss|
+        sss.source_files = 'Classes/Worker/View/*.{h,m}'
+    end
   end
 
   # s.exclude_files = "Classes/Exclude"
