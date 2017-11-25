@@ -61,4 +61,19 @@
         return self;
     };
 }
+
+- (SJUILabelWorker *(^)(NSInteger))numberOfLines {
+    return ^ SJUILabelWorker *(NSInteger numberOfLines) {
+        self.label.numberOfLines = numberOfLines;
+        return self;
+    };
+}
+
+- (SJUILabelWorker *(^)(CGFloat))maxLayoutWidth {
+    return ^ SJUILabelWorker *(CGFloat max) {
+        self.label.preferredMaxLayoutWidth = max;
+        return self;
+    };
+}
+
 @end

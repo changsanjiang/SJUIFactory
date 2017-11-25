@@ -9,8 +9,7 @@
 #ifndef SJUIFactoryHeader_h
 #define SJUIFactoryHeader_h
 
-#import "SJUIFactory.h"
-
+#import "UIView+SJUIFactory.h"
 #import "SJUIViewWorker.h"
 #import "SJUILabelWorker.h"
 #import "SJUIButtonWorker.h"

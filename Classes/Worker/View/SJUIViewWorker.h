@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly) SJUIViewWorker *(^y)(CGFloat y);
 @property (nonatomic, copy, readonly) SJUIViewWorker *(^w)(CGFloat w);
 @property (nonatomic, copy, readonly) SJUIViewWorker *(^h)(CGFloat h);
+@property (nonatomic, copy, readonly) SJUIViewWorker *(^frame)(CGRect frame);
 @property (nonatomic, copy, readonly) SJUIViewWorker *(^size)(CGSize size);
 @property (nonatomic, copy, readonly) SJUIViewWorker *(^centerX)(CGFloat centerX);
 @property (nonatomic, copy, readonly) SJUIViewWorker *(^centerY)(CGFloat centerY);
@@ -33,6 +34,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly) SJUIViewWorker *(^sizeToFit)(void);
 @property (nonatomic, copy, readonly) SJUIViewWorker *(^alpha)(CGFloat alpha);
 @property (nonatomic, copy, readonly) SJUIViewWorker *(^backgroundColorAlpha)(CGFloat alpha);
+
+@property (nonatomic, copy, readonly) SJUIViewWorker *(^contentMode)(UIViewContentMode mode);
 
 
 #pragma mark - Screen

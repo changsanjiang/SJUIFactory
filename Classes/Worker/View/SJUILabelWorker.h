@@ -17,5 +17,7 @@
 @property (nonatomic, copy, readonly) SJUILabelWorker *(^font)(UIFont *font);
 @property (nonatomic, copy, readonly) SJUILabelWorker *(^attrStr)(NSAttributedString *attrStr);
 @property (nonatomic, copy, readonly) SJUILabelWorker *(^attr)(void(^maker)(SJAttributeWorker *attr));
+@property (nonatomic, copy, readonly) SJUILabelWorker *(^numberOfLines)(NSInteger numberOfLines);
+@property (nonatomic, copy, readonly) SJUILabelWorker *(^maxLayoutWidth)(CGFloat width);
 
 @end

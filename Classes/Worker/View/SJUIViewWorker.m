@@ -7,7 +7,9 @@
 //
 
 #import "SJUIViewWorker.h"
-#import "SJUIFactoryHeader.h"
+#import "SJUILabelWorker.h"
+#import "SJUIButtonWorker.h"
+#import "SJScreenWorker.h"
 
 @interface SJUIViewWorker () {
     __kindof UIView *_view;
@@ -64,6 +66,13 @@
     return ^SJUIViewWorker *(CGFloat h) {
         CGRect frame = _view.frame;
         frame.size.height = h;
+        _view.frame = frame;
+        return self;
+    };
+}
+
+- (SJUIViewWorker * _Nonnull (^)(CGRect))frame {
+    return ^ SJUIViewWorker *(CGRect frame) {
         _view.frame = frame;
         return self;
     };
@@ -138,6 +147,13 @@
 - (SJUIViewWorker * _Nonnull (^)(CGFloat))backgroundColorAlpha {
     return ^SJUIViewWorker *(CGFloat backgroundColorAlpha) {
         _view.backgroundColor = [_view.backgroundColor colorWithAlphaComponent:backgroundColorAlpha];
+        return self;
+    };
+}
+
+- (SJUIViewWorker * _Nonnull (^)(UIViewContentMode))contentMode {
+    return ^SJUIViewWorker *(UIViewContentMode mode) {
+        _view.contentMode = mode;
         return self;
     };
 }
