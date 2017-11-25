@@ -1,0 +1,462 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		773414CA1FC9079000241B85 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 773414C91FC9079000241B85 /* AppDelegate.m */; };
+		773414CD1FC9079000241B85 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 773414CC1FC9079000241B85 /* ViewController.m */; };
+		773414D01FC9079000241B85 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 773414CE1FC9079000241B85 /* Main.storyboard */; };
+		773414D21FC9079000241B85 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 773414D11FC9079000241B85 /* Assets.xcassets */; };
+		773414D51FC9079000241B85 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 773414D31FC9079000241B85 /* LaunchScreen.storyboard */; };
+		773414D81FC9079000241B85 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 773414D71FC9079000241B85 /* main.m */; };
+		773414E11FC907C600241B85 /* SJUIFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 773414E01FC907C600241B85 /* SJUIFactory.m */; };
+		773414FF1FC93E1F00241B85 /* SJScreenWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = 773414F81FC93E1F00241B85 /* SJScreenWorker.m */; };
+		773415001FC93E1F00241B85 /* SJUIButtonWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = 773414FA1FC93E1F00241B85 /* SJUIButtonWorker.m */; };
+		773415011FC93E1F00241B85 /* SJUILabelWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = 773414FC1FC93E1F00241B85 /* SJUILabelWorker.m */; };
+		773415021FC93E1F00241B85 /* SJUIViewWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = 773414FE1FC93E1F00241B85 /* SJUIViewWorker.m */; };
+		7F784EC5BF3B29F1D4B994D5 /* libPods-SJUIFactory.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D866388359094AEEE40E2845 /* libPods-SJUIFactory.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		7295007DD072D8FA3A2F4641 /* Pods-SJUIFactory.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SJUIFactory.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SJUIFactory/Pods-SJUIFactory.debug.xcconfig"; sourceTree = "<group>"; };
+		773414C51FC9079000241B85 /* SJUIFactory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SJUIFactory.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		773414C81FC9079000241B85 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		773414C91FC9079000241B85 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		773414CB1FC9079000241B85 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		773414CC1FC9079000241B85 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		773414CF1FC9079000241B85 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		773414D11FC9079000241B85 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		773414D41FC9079000241B85 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		773414D61FC9079000241B85 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		773414D71FC9079000241B85 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		773414DF1FC907C600241B85 /* SJUIFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SJUIFactory.h; sourceTree = "<group>"; };
+		773414E01FC907C600241B85 /* SJUIFactory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SJUIFactory.m; sourceTree = "<group>"; };
+		773414F41FC91A9F00241B85 /* SJUIFactoryHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SJUIFactoryHeader.h; sourceTree = "<group>"; };
+		773414F71FC93E1F00241B85 /* SJScreenWorker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJScreenWorker.h; sourceTree = "<group>"; };
+		773414F81FC93E1F00241B85 /* SJScreenWorker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJScreenWorker.m; sourceTree = "<group>"; };
+		773414F91FC93E1F00241B85 /* SJUIButtonWorker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJUIButtonWorker.h; sourceTree = "<group>"; };
+		773414FA1FC93E1F00241B85 /* SJUIButtonWorker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJUIButtonWorker.m; sourceTree = "<group>"; };
+		773414FB1FC93E1F00241B85 /* SJUILabelWorker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJUILabelWorker.h; sourceTree = "<group>"; };
+		773414FC1FC93E1F00241B85 /* SJUILabelWorker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJUILabelWorker.m; sourceTree = "<group>"; };
+		773414FD1FC93E1F00241B85 /* SJUIViewWorker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJUIViewWorker.h; sourceTree = "<group>"; };
+		773414FE1FC93E1F00241B85 /* SJUIViewWorker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJUIViewWorker.m; sourceTree = "<group>"; };
+		D866388359094AEEE40E2845 /* libPods-SJUIFactory.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SJUIFactory.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9EA08A11AE187AC7645C676 /* Pods-SJUIFactory.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SJUIFactory.release.xcconfig"; path = "Pods/Target Support Files/Pods-SJUIFactory/Pods-SJUIFactory.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		773414C21FC9079000241B85 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7F784EC5BF3B29F1D4B994D5 /* libPods-SJUIFactory.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4C0130E04F61125E9982981C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D866388359094AEEE40E2845 /* libPods-SJUIFactory.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		773414BC1FC9079000241B85 = {
+			isa = PBXGroup;
+			children = (
+				773414C71FC9079000241B85 /* SJUIFactory */,
+				773414C61FC9079000241B85 /* Products */,
+				A98F0AA532D1944327117B41 /* Pods */,
+				4C0130E04F61125E9982981C /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		773414C61FC9079000241B85 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				773414C51FC9079000241B85 /* SJUIFactory.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		773414C71FC9079000241B85 /* SJUIFactory */ = {
+			isa = PBXGroup;
+			children = (
+				773414C81FC9079000241B85 /* AppDelegate.h */,
+				773414C91FC9079000241B85 /* AppDelegate.m */,
+				773414CB1FC9079000241B85 /* ViewController.h */,
+				773414CC1FC9079000241B85 /* ViewController.m */,
+				773414DE1FC907BE00241B85 /* Classes */,
+				773414CE1FC9079000241B85 /* Main.storyboard */,
+				773414D11FC9079000241B85 /* Assets.xcassets */,
+				773414D31FC9079000241B85 /* LaunchScreen.storyboard */,
+				773414D61FC9079000241B85 /* Info.plist */,
+				773414D71FC9079000241B85 /* main.m */,
+			);
+			path = SJUIFactory;
+			sourceTree = "<group>";
+		};
+		773414DE1FC907BE00241B85 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				773414F41FC91A9F00241B85 /* SJUIFactoryHeader.h */,
+				773414DF1FC907C600241B85 /* SJUIFactory.h */,
+				773414E01FC907C600241B85 /* SJUIFactory.m */,
+				773414F61FC93E1F00241B85 /* Worker */,
+			);
+			path = Classes;
+			sourceTree = SOURCE_ROOT;
+		};
+		773414F61FC93E1F00241B85 /* Worker */ = {
+			isa = PBXGroup;
+			children = (
+				773414FD1FC93E1F00241B85 /* SJUIViewWorker.h */,
+				773414FE1FC93E1F00241B85 /* SJUIViewWorker.m */,
+				773414FB1FC93E1F00241B85 /* SJUILabelWorker.h */,
+				773414FC1FC93E1F00241B85 /* SJUILabelWorker.m */,
+				773414F91FC93E1F00241B85 /* SJUIButtonWorker.h */,
+				773414FA1FC93E1F00241B85 /* SJUIButtonWorker.m */,
+				773414F71FC93E1F00241B85 /* SJScreenWorker.h */,
+				773414F81FC93E1F00241B85 /* SJScreenWorker.m */,
+			);
+			path = Worker;
+			sourceTree = "<group>";
+		};
+		A98F0AA532D1944327117B41 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				7295007DD072D8FA3A2F4641 /* Pods-SJUIFactory.debug.xcconfig */,
+				F9EA08A11AE187AC7645C676 /* Pods-SJUIFactory.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		773414C41FC9079000241B85 /* SJUIFactory */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 773414DB1FC9079000241B85 /* Build configuration list for PBXNativeTarget "SJUIFactory" */;
+			buildPhases = (
+				909C15311AFD474F09617AC8 /* [CP] Check Pods Manifest.lock */,
+				773414C11FC9079000241B85 /* Sources */,
+				773414C21FC9079000241B85 /* Frameworks */,
+				773414C31FC9079000241B85 /* Resources */,
+				0550F5533DAA68A8C3BA93F5 /* [CP] Embed Pods Frameworks */,
+				B4BD89FD0BC86A9AA76226F0 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SJUIFactory;
+			productName = SJUIFactory;
+			productReference = 773414C51FC9079000241B85 /* SJUIFactory.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		773414BD1FC9079000241B85 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0910;
+				ORGANIZATIONNAME = SanJiang;
+				TargetAttributes = {
+					773414C41FC9079000241B85 = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Manual;
+					};
+				};
+			};
+			buildConfigurationList = 773414C01FC9079000241B85 /* Build configuration list for PBXProject "SJUIFactory" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 773414BC1FC9079000241B85;
+			productRefGroup = 773414C61FC9079000241B85 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				773414C41FC9079000241B85 /* SJUIFactory */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		773414C31FC9079000241B85 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				773414D51FC9079000241B85 /* LaunchScreen.storyboard in Resources */,
+				773414D21FC9079000241B85 /* Assets.xcassets in Resources */,
+				773414D01FC9079000241B85 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0550F5533DAA68A8C3BA93F5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SJUIFactory/Pods-SJUIFactory-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		909C15311AFD474F09617AC8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SJUIFactory-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B4BD89FD0BC86A9AA76226F0 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SJUIFactory/Pods-SJUIFactory-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		773414C11FC9079000241B85 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				773414CD1FC9079000241B85 /* ViewController.m in Sources */,
+				773414D81FC9079000241B85 /* main.m in Sources */,
+				773414CA1FC9079000241B85 /* AppDelegate.m in Sources */,
+				773415021FC93E1F00241B85 /* SJUIViewWorker.m in Sources */,
+				773414E11FC907C600241B85 /* SJUIFactory.m in Sources */,
+				773415011FC93E1F00241B85 /* SJUILabelWorker.m in Sources */,
+				773415001FC93E1F00241B85 /* SJUIButtonWorker.m in Sources */,
+				773414FF1FC93E1F00241B85 /* SJScreenWorker.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		773414CE1FC9079000241B85 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				773414CF1FC9079000241B85 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		773414D31FC9079000241B85 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				773414D41FC9079000241B85 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		773414D91FC9079000241B85 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		773414DA1FC9079000241B85 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		773414DC1FC9079000241B85 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7295007DD072D8FA3A2F4641 /* Pods-SJUIFactory.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = DB5B5F2RH5;
+				INFOPLIST_FILE = SJUIFactory/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.SanJiang.SJUIFactory;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "acd2453e-e396-4ccf-bf56-508276824c6c";
+				PROVISIONING_PROFILE_SPECIFIER = SanJiangDevelopment;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		773414DD1FC9079000241B85 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F9EA08A11AE187AC7645C676 /* Pods-SJUIFactory.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = SJUIFactory/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.SanJiang.SJUIFactory;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		773414C01FC9079000241B85 /* Build configuration list for PBXProject "SJUIFactory" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				773414D91FC9079000241B85 /* Debug */,
+				773414DA1FC9079000241B85 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		773414DB1FC9079000241B85 /* Build configuration list for PBXNativeTarget "SJUIFactory" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				773414DC1FC9079000241B85 /* Debug */,
+				773414DD1FC9079000241B85 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 773414BD1FC9079000241B85 /* Project object */;
+}
