@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "SJUIFactory"
-  s.version      = "0.0.1"
+  s.version      = "0.0.2"
   s.summary      = "make view."
 
   # This description is used to generate tags and improve search results.
@@ -90,17 +90,11 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  # s.public_header_files = "Classes/SJUIFactoryHeader.h"
+  # s.public_header_files = "Classes/*.h{h,m}"
   s.source_files  = "Classes/*.{h,m}"
 
-  s.subspec 'Worker' do |ss|
-    ss.subspec 'Controller' do |sss|
-        sss.source_files = "Classes/Worker/Controller/*.{h,m}"
-    end
-
-    ss.subspec 'View' do |sss|
-        sss.source_files = 'Classes/Worker/View/*.{h,m}'
-    end
+  s.subspec 'Category' do |ss|
+    ss.source_files = 'Classes/Category/*.{h,m}'
   end
 
   # s.exclude_files = "Classes/Exclude"

@@ -10,13 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class SJUIViewWorker, SJScreenWorker;
-
 @interface UIView (SJUIFactory)
-
-@property (nonatomic, copy, readonly) void(^csj_set)(void(^block)(__kindof SJUIViewWorker *make));
-
-@property (nonatomic, copy, readonly) SJScreenWorker *screen;
 
 @property (nonatomic, assign) CGFloat csj_x;
 @property (nonatomic, assign) CGFloat csj_y;

@@ -32,10 +32,6 @@
 - (void)sview {
     UIView *view = [UIView new];
 
-    view.csj_set(^(__kindof SJUIViewWorker * _Nonnull make) {
-        make.w(100).h(100).center(make.screen.center);
-        make.backgroundColor([UIColor orangeColor]);
-    });
 
     [self.view addSubview:view];
 }
@@ -44,12 +40,12 @@
 #pragma mark - label
 - (void)slabel {
     UILabel *label = [UILabel new];
-    
-    label.csj_set(^(SJUILabelWorker * _Nonnull make) {
-        make.backgroundColor([UIColor orangeColor]);
-        make.text(@"人生若只如初见, 何事秋风悲画扇.").sizeToFit();
-        make.center(make.screen.center);
-    });
+//    
+//    label.csj_set(^(SJUILabelWorker * _Nonnull make) {
+//        make.backgroundColor([UIColor orangeColor]);
+//        make.text(@"人生若只如初见, 何事秋风悲画扇.").sizeToFit();
+//        make.center(make.screen.center);
+//    });
     
     [self.view addSubview:label];
     

@@ -8,22 +8,8 @@
 
 #import "UIView+SJUIFactory.h"
 #import <objc/message.h>
-#import "SJScreenWorker.h"
-#import "SJUIViewWorker.h"
 
 @implementation UIView (SJUIFactory)
-
-- (void (^_Nonnull)(void (^ _Nonnull)(__kindof SJUIViewWorker * _Nonnull)))csj_set {
-    return ^ (void(^block)(SJUIViewWorker *worker)) {
-        SJUIViewWorker *worker = [[SJUIViewWorker alloc] initWithView:self];
-        block(worker);
-    };
-}
-
-#pragma mark -
-- (SJScreenWorker *)screen {
-    return [SJScreenWorker shared];
-}
 
 - (void)setCsj_x:(CGFloat)csj_x {
     CGRect frame    = self.frame;

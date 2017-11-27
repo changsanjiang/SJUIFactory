@@ -14,15 +14,10 @@
 		773414D51FC9079000241B85 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 773414D31FC9079000241B85 /* LaunchScreen.storyboard */; };
 		773414D81FC9079000241B85 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 773414D71FC9079000241B85 /* main.m */; };
 		773415041FC93FBA00241B85 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 773415031FC93FBA00241B85 /* README.md */; };
-		7734150D1FC945C300241B85 /* SJUIViewControllerWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7734150C1FC945C300241B85 /* SJUIViewControllerWorker.m */; };
-		773415171FC9465700241B85 /* SJNavigationControllerWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = 773415161FC9465700241B85 /* SJNavigationControllerWorker.m */; };
-		7734151A1FC9466C00241B85 /* SJUIImagePickerControllerWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = 773415191FC9466C00241B85 /* SJUIImagePickerControllerWorker.m */; };
-		7734151D1FC948C500241B85 /* UIView+SJUIFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 7734151C1FC948C500241B85 /* UIView+SJUIFactory.m */; };
-		7734152D1FC9594D00241B85 /* SJScreenWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = 773415241FC9594D00241B85 /* SJScreenWorker.m */; };
-		7734152E1FC9594D00241B85 /* SJUIButtonWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = 773415261FC9594D00241B85 /* SJUIButtonWorker.m */; };
-		7734152F1FC9594D00241B85 /* SJUIImageViewWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = 773415281FC9594D00241B85 /* SJUIImageViewWorker.m */; };
-		773415301FC9594D00241B85 /* SJUILabelWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7734152A1FC9594D00241B85 /* SJUILabelWorker.m */; };
-		773415311FC9594D00241B85 /* SJUIViewWorker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7734152C1FC9594D00241B85 /* SJUIViewWorker.m */; };
+		7749623D1FCBF2C300F7CF10 /* SJUIFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 774962391FCBF2C300F7CF10 /* SJUIFactory.m */; };
+		774962421FCBF42C00F7CF10 /* SJUIFactory.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 774962411FCBF42C00F7CF10 /* SJUIFactory.podspec */; };
+		774962481FCBF4F700F7CF10 /* UIImagePickerController+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 774962451FCBF4F700F7CF10 /* UIImagePickerController+Extension.m */; };
+		774962491FCBF4F700F7CF10 /* UIView+SJUIFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 774962471FCBF4F700F7CF10 /* UIView+SJUIFactory.m */; };
 		7F784EC5BF3B29F1D4B994D5 /* libPods-SJUIFactory.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D866388359094AEEE40E2845 /* libPods-SJUIFactory.a */; };
 /* End PBXBuildFile section */
 
@@ -40,24 +35,13 @@
 		773414D71FC9079000241B85 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		773414F41FC91A9F00241B85 /* SJUIFactoryHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SJUIFactoryHeader.h; sourceTree = "<group>"; };
 		773415031FC93FBA00241B85 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		7734150B1FC945C300241B85 /* SJUIViewControllerWorker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SJUIViewControllerWorker.h; sourceTree = "<group>"; };
-		7734150C1FC945C300241B85 /* SJUIViewControllerWorker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SJUIViewControllerWorker.m; sourceTree = "<group>"; };
-		773415151FC9465700241B85 /* SJNavigationControllerWorker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SJNavigationControllerWorker.h; sourceTree = "<group>"; };
-		773415161FC9465700241B85 /* SJNavigationControllerWorker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SJNavigationControllerWorker.m; sourceTree = "<group>"; };
-		773415181FC9466C00241B85 /* SJUIImagePickerControllerWorker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SJUIImagePickerControllerWorker.h; sourceTree = "<group>"; };
-		773415191FC9466C00241B85 /* SJUIImagePickerControllerWorker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SJUIImagePickerControllerWorker.m; sourceTree = "<group>"; };
-		7734151B1FC948C500241B85 /* UIView+SJUIFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+SJUIFactory.h"; sourceTree = "<group>"; };
-		7734151C1FC948C500241B85 /* UIView+SJUIFactory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+SJUIFactory.m"; sourceTree = "<group>"; };
-		773415231FC9594D00241B85 /* SJScreenWorker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJScreenWorker.h; sourceTree = "<group>"; };
-		773415241FC9594D00241B85 /* SJScreenWorker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJScreenWorker.m; sourceTree = "<group>"; };
-		773415251FC9594D00241B85 /* SJUIButtonWorker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJUIButtonWorker.h; sourceTree = "<group>"; };
-		773415261FC9594D00241B85 /* SJUIButtonWorker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJUIButtonWorker.m; sourceTree = "<group>"; };
-		773415271FC9594D00241B85 /* SJUIImageViewWorker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJUIImageViewWorker.h; sourceTree = "<group>"; };
-		773415281FC9594D00241B85 /* SJUIImageViewWorker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJUIImageViewWorker.m; sourceTree = "<group>"; };
-		773415291FC9594D00241B85 /* SJUILabelWorker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJUILabelWorker.h; sourceTree = "<group>"; };
-		7734152A1FC9594D00241B85 /* SJUILabelWorker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJUILabelWorker.m; sourceTree = "<group>"; };
-		7734152B1FC9594D00241B85 /* SJUIViewWorker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJUIViewWorker.h; sourceTree = "<group>"; };
-		7734152C1FC9594D00241B85 /* SJUIViewWorker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJUIViewWorker.m; sourceTree = "<group>"; };
+		774962391FCBF2C300F7CF10 /* SJUIFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SJUIFactory.m; sourceTree = "<group>"; };
+		7749623C1FCBF2C300F7CF10 /* SJUIFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SJUIFactory.h; sourceTree = "<group>"; };
+		774962411FCBF42C00F7CF10 /* SJUIFactory.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SJUIFactory.podspec; sourceTree = "<group>"; };
+		774962441FCBF4F700F7CF10 /* UIImagePickerController+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImagePickerController+Extension.h"; sourceTree = "<group>"; };
+		774962451FCBF4F700F7CF10 /* UIImagePickerController+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImagePickerController+Extension.m"; sourceTree = "<group>"; };
+		774962461FCBF4F700F7CF10 /* UIView+SJUIFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SJUIFactory.h"; sourceTree = "<group>"; };
+		774962471FCBF4F700F7CF10 /* UIView+SJUIFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SJUIFactory.m"; sourceTree = "<group>"; };
 		D866388359094AEEE40E2845 /* libPods-SJUIFactory.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SJUIFactory.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9EA08A11AE187AC7645C676 /* Pods-SJUIFactory.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SJUIFactory.release.xcconfig"; path = "Pods/Target Support Files/Pods-SJUIFactory/Pods-SJUIFactory.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -86,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				773415031FC93FBA00241B85 /* README.md */,
+				774962411FCBF42C00F7CF10 /* SJUIFactory.podspec */,
 				773414C71FC9079000241B85 /* SJUIFactory */,
 				773414C61FC9079000241B85 /* Products */,
 				A98F0AA532D1944327117B41 /* Pods */,
@@ -122,50 +107,22 @@
 			isa = PBXGroup;
 			children = (
 				773414F41FC91A9F00241B85 /* SJUIFactoryHeader.h */,
-				7734151B1FC948C500241B85 /* UIView+SJUIFactory.h */,
-				7734151C1FC948C500241B85 /* UIView+SJUIFactory.m */,
-				773414F61FC93E1F00241B85 /* Worker */,
+				7749623C1FCBF2C300F7CF10 /* SJUIFactory.h */,
+				774962391FCBF2C300F7CF10 /* SJUIFactory.m */,
+				774962431FCBF4F700F7CF10 /* Category */,
 			);
 			path = Classes;
 			sourceTree = SOURCE_ROOT;
 		};
-		773414F61FC93E1F00241B85 /* Worker */ = {
+		774962431FCBF4F700F7CF10 /* Category */ = {
 			isa = PBXGroup;
 			children = (
-				773415221FC9594D00241B85 /* View */,
-				773415101FC945E900241B85 /* Controller */,
+				774962441FCBF4F700F7CF10 /* UIImagePickerController+Extension.h */,
+				774962451FCBF4F700F7CF10 /* UIImagePickerController+Extension.m */,
+				774962461FCBF4F700F7CF10 /* UIView+SJUIFactory.h */,
+				774962471FCBF4F700F7CF10 /* UIView+SJUIFactory.m */,
 			);
-			path = Worker;
-			sourceTree = "<group>";
-		};
-		773415101FC945E900241B85 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				7734150B1FC945C300241B85 /* SJUIViewControllerWorker.h */,
-				7734150C1FC945C300241B85 /* SJUIViewControllerWorker.m */,
-				773415151FC9465700241B85 /* SJNavigationControllerWorker.h */,
-				773415161FC9465700241B85 /* SJNavigationControllerWorker.m */,
-				773415181FC9466C00241B85 /* SJUIImagePickerControllerWorker.h */,
-				773415191FC9466C00241B85 /* SJUIImagePickerControllerWorker.m */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		773415221FC9594D00241B85 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				773415231FC9594D00241B85 /* SJScreenWorker.h */,
-				773415241FC9594D00241B85 /* SJScreenWorker.m */,
-				773415251FC9594D00241B85 /* SJUIButtonWorker.h */,
-				773415261FC9594D00241B85 /* SJUIButtonWorker.m */,
-				773415271FC9594D00241B85 /* SJUIImageViewWorker.h */,
-				773415281FC9594D00241B85 /* SJUIImageViewWorker.m */,
-				773415291FC9594D00241B85 /* SJUILabelWorker.h */,
-				7734152A1FC9594D00241B85 /* SJUILabelWorker.m */,
-				7734152B1FC9594D00241B85 /* SJUIViewWorker.h */,
-				7734152C1FC9594D00241B85 /* SJUIViewWorker.m */,
-			);
-			path = View;
+			path = Category;
 			sourceTree = "<group>";
 		};
 		A98F0AA532D1944327117B41 /* Pods */ = {
@@ -240,6 +197,7 @@
 			files = (
 				773414D51FC9079000241B85 /* LaunchScreen.storyboard in Resources */,
 				773414D21FC9079000241B85 /* Assets.xcassets in Resources */,
+				774962421FCBF42C00F7CF10 /* SJUIFactory.podspec in Resources */,
 				773415041FC93FBA00241B85 /* README.md in Resources */,
 				773414D01FC9079000241B85 /* Main.storyboard in Resources */,
 			);
@@ -303,18 +261,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				773415301FC9594D00241B85 /* SJUILabelWorker.m in Sources */,
+				774962491FCBF4F700F7CF10 /* UIView+SJUIFactory.m in Sources */,
 				773414CD1FC9079000241B85 /* ViewController.m in Sources */,
-				7734152F1FC9594D00241B85 /* SJUIImageViewWorker.m in Sources */,
-				773415311FC9594D00241B85 /* SJUIViewWorker.m in Sources */,
-				7734152E1FC9594D00241B85 /* SJUIButtonWorker.m in Sources */,
 				773414D81FC9079000241B85 /* main.m in Sources */,
-				7734152D1FC9594D00241B85 /* SJScreenWorker.m in Sources */,
-				7734151A1FC9466C00241B85 /* SJUIImagePickerControllerWorker.m in Sources */,
-				773415171FC9465700241B85 /* SJNavigationControllerWorker.m in Sources */,
+				7749623D1FCBF2C300F7CF10 /* SJUIFactory.m in Sources */,
 				773414CA1FC9079000241B85 /* AppDelegate.m in Sources */,
-				7734151D1FC948C500241B85 /* UIView+SJUIFactory.m in Sources */,
-				7734150D1FC945C300241B85 /* SJUIViewControllerWorker.m in Sources */,
+				774962481FCBF4F700F7CF10 /* UIImagePickerController+Extension.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
