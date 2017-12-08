@@ -17,12 +17,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
    
+    UIImageView *imageView = [SJUIImageViewFactory roundImageViewWithImageName:@"test"];
+    imageView.csj_size = CGSizeMake(100, 100);
+    imageView.center = self.view.center;
+    [self.view addSubview:imageView];
     
-//    [self sview];
-    
-    [self slabel];
     
     // Do any additional setup after loading the view, typically from a nib.
 }

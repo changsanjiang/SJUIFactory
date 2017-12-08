@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		77067A611FDAC98B00573772 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 77067A601FDAC98A00573772 /* placeholder.png */; };
+		77067A631FDACA6200573772 /* test.png in Resources */ = {isa = PBXBuildFile; fileRef = 77067A621FDACA6200573772 /* test.png */; };
 		773414CA1FC9079000241B85 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 773414C91FC9079000241B85 /* AppDelegate.m */; };
 		773414CD1FC9079000241B85 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 773414CC1FC9079000241B85 /* ViewController.m */; };
 		773414D01FC9079000241B85 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 773414CE1FC9079000241B85 /* Main.storyboard */; };
@@ -23,6 +25,8 @@
 
 /* Begin PBXFileReference section */
 		7295007DD072D8FA3A2F4641 /* Pods-SJUIFactory.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SJUIFactory.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SJUIFactory/Pods-SJUIFactory.debug.xcconfig"; sourceTree = "<group>"; };
+		77067A601FDAC98A00573772 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
+		77067A621FDACA6200573772 /* test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test.png; sourceTree = "<group>"; };
 		773414C51FC9079000241B85 /* SJUIFactory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SJUIFactory.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		773414C81FC9079000241B85 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		773414C91FC9079000241B85 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -93,6 +97,8 @@
 				773414C91FC9079000241B85 /* AppDelegate.m */,
 				773414CB1FC9079000241B85 /* ViewController.h */,
 				773414CC1FC9079000241B85 /* ViewController.m */,
+				77067A601FDAC98A00573772 /* placeholder.png */,
+				77067A621FDACA6200573772 /* test.png */,
 				773414DE1FC907BE00241B85 /* Classes */,
 				773414CE1FC9079000241B85 /* Main.storyboard */,
 				773414D11FC9079000241B85 /* Assets.xcassets */,
@@ -196,6 +202,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				773414D51FC9079000241B85 /* LaunchScreen.storyboard in Resources */,
+				77067A611FDAC98B00573772 /* placeholder.png in Resources */,
+				77067A631FDACA6200573772 /* test.png in Resources */,
 				773414D21FC9079000241B85 /* Assets.xcassets in Resources */,
 				774962421FCBF42C00F7CF10 /* SJUIFactory.podspec in Resources */,
 				773415041FC93FBA00241B85 /* README.md in Resources */,

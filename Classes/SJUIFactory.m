@@ -34,41 +34,30 @@ BOOL SJ_is_iPhoneX(void) {
     return SJScreen_Min() / SJScreen_Max() == 1125.0 / 2436;
 }
 
-/*!
- *  通过高度 get 到字体大小
- *
- *  不管粗体还是普通, 高度相同, 粗细不同.
- *
- *  Height  Font    scale
- *  12      10      1.2
- *  18      15      1.2
- *  24      20      1.2
- *  36      30      1.2
- *  48      40      1.2
- */
 
 #pragma mark - Round View
 
-@interface SJRoundView : UIView
-@property (nonatomic, strong, readonly) CAShapeLayer *shapeLayer;
-@end
+@interface SJRoundView : UIView @end
 @implementation SJRoundView
 - (void)layoutSubviews {
     [super layoutSubviews];
-    self.layer.cornerRadius = MIN(self.bounds.size.width, self.bounds.size.height) * 0.5;
-    
-    //    CAShapeLayer *layer = [CAShapeLayer layer];
-    //    layer.frame = self.bounds;
-    //    layer.path = [UIBezierPath bezierPathWithArcCenter:_sjCenter(self.frame) radius:CGRectGetWidth(self.frame) * 0.5 startAngle:0 endAngle:M_PI * 2 clockwise:YES].CGPath;
-    //    self.layer.mask = layer;
-    
+    self.layer.mask = [SJUIFactory roundShapeLayerWithSize:self.bounds.size];
 }
+@end
 
-@synthesize shapeLayer = _shapeLayer;
-- (CAShapeLayer *)shapeLayer {
-    if ( _shapeLayer ) return _shapeLayer;
-    _shapeLayer = [CAShapeLayer layer];
-    return _shapeLayer;
+@interface SJRoundImageView : UIImageView @end
+@implementation SJRoundImageView
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    self.layer.mask = [SJUIFactory roundShapeLayerWithSize:self.bounds.size];
+}
+@end
+
+@interface SJRoundButton : UIButton @end
+@implementation SJRoundButton
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    self.layer.mask = [SJUIFactory roundShapeLayerWithSize:self.bounds.size];
 }
 @end
 
@@ -104,57 +93,17 @@ BOOL SJ_is_iPhoneX(void) {
 @end
 
 
-#pragma mark - Round
-
-@interface SJRoundImageView : UIImageView @end
-@implementation SJRoundImageView
-- (instancetype)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
-    if ( !self ) return nil;
-    self.clipsToBounds = YES;
-    return self;
-}
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    self.layer.cornerRadius = MIN(self.bounds.size.width, self.bounds.size.height) * 0.5;
-}
-@end
-
-@interface SJRoundButton : UIButton @end
-@implementation SJRoundButton
-- (instancetype)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
-    if ( !self ) return nil;
-    self.clipsToBounds = YES;
-    return self;
-}
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    self.layer.cornerRadius = MIN(self.bounds.size.width, self.bounds.size.height) * 0.5;
-}
-@end
-
-
 
 @implementation SJUIFactory
 
-+ (instancetype)sharedManager {
-    static id _instance;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        _instance = [self new];
-    });
-    return _instance;
-}
-
 + (UIFont *)getFontWithViewHeight:(CGFloat)height {
     if ( 0 == height ) return nil;
-    return [UIFont systemFontOfSize:height / 1.2];
+    return [UIFont systemFontOfSize:height / 1.193359];
 }
 
 + (UIFont *)getBoldFontWithViewHeight:(CGFloat)height {
     if ( 0 == height ) return nil;
-    return [UIFont boldSystemFontOfSize:height / 1.2];
+    return [UIFont boldSystemFontOfSize:height / 1.193359];
 }
 
 + (void)commonShadowWithView:(UIView *)view {
@@ -162,6 +111,16 @@ BOOL SJ_is_iPhoneX(void) {
     view.layer.shadowOpacity = 1;
     view.layer.shadowOffset = CGSizeMake(0.5, 0.5);
     view.layer.masksToBounds = NO;
+}
+
++ (void)commonShadowWithView:(UIView *)view size:(CGSize)size {
+    [self commonShadowWithView:view];
+    view.layer.shadowPath = [UIBezierPath bezierPathWithRect:(CGRect){CGPointZero, size}].CGPath;
+}
+
++ (void)commonShadowWithView:(UIView *)view size:(CGSize)size cornerRadius:(CGFloat)cornerRadius {
+    [self commonShadowWithView:view];
+    view.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:(CGRect){CGPointZero, size} cornerRadius:cornerRadius].CGPath;
 }
 
 + (void)regulate:(UIView *)view cornerRadius:(CGFloat)cornerRadius {
@@ -174,6 +133,15 @@ BOOL SJ_is_iPhoneX(void) {
     [view setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
     [view setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
     [view setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+}
+
++ (CAShapeLayer *)roundShapeLayerWithSize:(CGSize)size {
+    CGRect bounds = (CGRect){CGPointZero, size};
+    UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:bounds byRoundingCorners:UIRectCornerAllCorners cornerRadii:size];
+    CAShapeLayer *shapeLayer = [CAShapeLayer layer];
+    shapeLayer.frame = bounds;
+    shapeLayer.path = maskPath.CGPath;
+    return shapeLayer;
 }
 
 @end
@@ -206,8 +174,8 @@ BOOL SJ_is_iPhoneX(void) {
 }
 
 + (void)_settingView:(UIView *)view
-    backgroundColor:(UIColor *)backgroundColor
-              frame:(CGRect)frame {
+     backgroundColor:(UIColor *)backgroundColor
+               frame:(CGRect)frame {
     if ( !backgroundColor ) backgroundColor = [UIColor clearColor];
     view.backgroundColor = backgroundColor;
     view.frame = frame;
@@ -223,6 +191,7 @@ BOOL SJ_is_iPhoneX(void) {
     UIView *view = [[SJLineView alloc] initWithHeight:height lineColor:color];
     return view;
 }
+
 @end
 
 
@@ -384,9 +353,19 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight {
     return [self labelWithText:nil textColor:textColor alignment:alignment font:font];
 }
 
++ (UILabel *)labelWithText:(NSString *)text {
+    return [self labelWithText:text textColor:nil];
+}
+
 + (UILabel *)labelWithText:(NSString *)text
                  textColor:(UIColor *)textColor {
     return [self labelWithText:text textColor:textColor alignment:0];
+}
+
++ (UILabel *)labelWithText:(NSString *)text
+                 textColor:(UIColor *)textColor
+                      font:(UIFont *)font {
+    return [self labelWithText:text textColor:textColor alignment:NSTextAlignmentLeft font:font];
 }
 
 + (UILabel *)labelWithText:(NSString *)text
@@ -401,6 +380,12 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight {
                       font:(UIFont *)font {
     UILabel *label = [UILabel new];
     [self settingLabelWithLabel:label text:text textColor:textColor alignment:alignment font:font attrStr:nil];
+    return label;
+}
+
++ (UILabel *)attributeLabel {
+    UILabel *label = [UILabel new];
+    label.numberOfLines = 0;
     return label;
 }
 
@@ -473,6 +458,14 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight {
     return btn;
 }
 
++ (UIButton *)buttonWithTitle:(NSString *)title
+                   titleColor:(UIColor *)titleColor
+                         font:(UIFont *)font
+                       target:(id)target
+                          sel:(SEL)sel {
+    return [self buttonWithTitle:title titleColor:titleColor font:font backgroundColor:nil target:target sel:sel tag:0];
+}
+
 + (UIButton *)buttonWithTitle:(NSString *)title titleColor:(UIColor *)titleColor imageName:(NSString *)imageName {
     UIButton *btn = [self buttonWithTitle:title titleColor:titleColor];
     [btn setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
@@ -529,7 +522,10 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight {
     if ( title ) [btn setTitle:title forState:UIControlStateNormal];
     if ( !titleColor ) titleColor = [UIColor whiteColor];
     [btn setTitleColor:titleColor forState:UIControlStateNormal];
-    if ( attributedTitle ) [btn setAttributedTitle:attributedTitle forState:UIControlStateNormal];
+    if ( attributedTitle ) {
+        [btn setAttributedTitle:attributedTitle forState:UIControlStateNormal];
+        btn.titleLabel.numberOfLines = 0;
+    }
     if ( !backgroundColor ) backgroundColor = [UIColor clearColor];
     [btn setBackgroundColor:backgroundColor];
     if ( target ) [btn addTarget:target action:sel forControlEvents:UIControlEventTouchUpInside];
@@ -569,6 +565,10 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight {
     UIButton *btn = [UIButton new];
     [self settingButtonWithBtn:btn font:nil title:nil titleColor:nil attributedTitle:attrStr imageName:nil backgroundColor:backgroundColor target:target sel:sel tag:tag];
     return btn;
+}
+
++ (UIButton *)roundButton {
+    return [SJRoundButton new];
 }
 
 + (UIButton *)roundButtonWithTitle:(NSString *)title
@@ -658,8 +658,16 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight {
     return imageView;
 }
 
++ (UIImageView *)roundImageView {
+    return [self roundImageViewWithViewMode:UIViewContentModeScaleAspectFill];
+}
+
++ (UIImageView *)roundImageViewWithViewMode:(UIViewContentMode)mode {
+    return [self roundImageViewWithImageName:nil viewMode:mode];
+}
+
 + (UIImageView *)roundImageViewWithImageName:(NSString *)imageName {
-    return [SJUIImageViewFactory roundImageViewWithImageName:imageName viewMode:UIViewContentModeScaleAspectFit];
+    return [SJUIImageViewFactory roundImageViewWithImageName:imageName viewMode:UIViewContentModeScaleAspectFill];
 }
 
 + (UIImageView *)roundImageViewWithBackgroundColor:(UIColor *)color
@@ -673,7 +681,7 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight {
 + (UIImageView *)roundImageViewWithImageName:(NSString *)imageName
                                     viewMode:(UIViewContentMode)mode {
     UIImageView *imageView = [SJRoundImageView new];
-    imageView.image = [UIImage imageNamed:imageName];
+    if ( imageName ) imageView.image = [UIImage imageNamed:imageName];
     imageView.contentMode = mode;
     return imageView;
 }
@@ -870,3 +878,4 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight {
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 @end
+
