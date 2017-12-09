@@ -25,6 +25,8 @@ extern BOOL SJ_is_iPhoneX(void);
 
 + (void)commonShadowWithView:(UIView *)view;
 
++ (void)commonShadowWithLayer:(CALayer *)layer;
+
 + (void)commonShadowWithView:(UIView *)view size:(CGSize)size;
 
 + (void)commonShadowWithView:(UIView *)view size:(CGSize)size cornerRadius:(CGFloat)cornerRadius;
@@ -34,6 +36,10 @@ extern BOOL SJ_is_iPhoneX(void);
 + (void)boundaryProtectedWithView:(UIView *)view;
 
 + (CAShapeLayer *)roundShapeLayerWithSize:(CGSize)size;
+
++ (CAShapeLayer *)shapeLayerWithSize:(CGSize)size cornerRadius:(float)cornerRadius;
+
++ (CAShapeLayer *)commonShadowShapeLayerWithSize:(CGSize)size cornerRadius:(float)radius;
 
 @end
 
@@ -331,12 +337,33 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight;
 + (UIImageView *)imageViewWithImageName:(NSString *)imageName
                                viewMode:(UIViewContentMode)mode;
 
++ (UIImageView *)imageViewWithImageName:(NSString *)imageName
+                               viewMode:(UIViewContentMode)mode
+                        backgroundColor:(UIColor *)color;
+
+@end
+
 /*!
  *  viewMode -> UIViewContentModeScaleAspectFill
- **/
+ *  不提供设置隐影, 如果要设置阴影
+ */
+@interface SJShapeImageViewFactory : NSObject
+
++ (UIImageView *)imageViewWithCornerRadius:(float)cornerRadius;
+
++ (UIImageView *)imageViewWithCornerRadius:(float)cornerRadius
+                                 imageName:(NSString *)imageName;
+
++ (UIImageView *)imageViewWithCornerRadius:(float)cornerRadius
+                                 imageName:(NSString *)imageName
+                                  viewMode:(UIViewContentMode)mode;
+
+
 + (UIImageView *)roundImageView;
 
 + (UIImageView *)roundImageViewWithViewMode:(UIViewContentMode)mode;
+
++ (UIImageView *)roundImageViewWithBackgroundColor:(UIColor *)color;
 
 + (UIImageView *)roundImageViewWithBackgroundColor:(UIColor *)color
                                           viewMode:(UIViewContentMode)mode;
@@ -345,7 +372,6 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight;
 
 + (UIImageView *)roundImageViewWithImageName:(NSString *)imageName
                                     viewMode:(UIViewContentMode)mode;
-
 @end
 
 

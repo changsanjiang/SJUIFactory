@@ -34,30 +34,34 @@ BOOL SJ_is_iPhoneX(void) {
     return SJScreen_Min() / SJScreen_Max() == 1125.0 / 2436;
 }
 
+static void _SJ_Round(UIView *view, float cornerRadius) {
+    if ( 0 != cornerRadius ) {
+        view.layer.mask = [SJUIFactory shapeLayerWithSize:view.bounds.size cornerRadius:cornerRadius];
+    }
+    else {
+        view.layer.mask = [SJUIFactory roundShapeLayerWithSize:view.bounds.size];
+    }
+}
 
 #pragma mark - Round View
 
-@interface SJRoundView : UIView @end
+@interface SJRoundView : UIView
+@property (nonatomic, assign, readwrite) CGFloat cornerRadius;
+@end
 @implementation SJRoundView
 - (void)layoutSubviews {
     [super layoutSubviews];
-    self.layer.mask = [SJUIFactory roundShapeLayerWithSize:self.bounds.size];
+    _SJ_Round(self, _cornerRadius);
 }
 @end
 
-@interface SJRoundImageView : UIImageView @end
-@implementation SJRoundImageView
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    self.layer.mask = [SJUIFactory roundShapeLayerWithSize:self.bounds.size];
-}
+@interface SJRoundButton : UIButton
+@property (nonatomic, assign, readwrite) CGFloat cornerRadius;
 @end
-
-@interface SJRoundButton : UIButton @end
 @implementation SJRoundButton
 - (void)layoutSubviews {
     [super layoutSubviews];
-    self.layer.mask = [SJUIFactory roundShapeLayerWithSize:self.bounds.size];
+    _SJ_Round(self, _cornerRadius);
 }
 @end
 
@@ -107,20 +111,30 @@ BOOL SJ_is_iPhoneX(void) {
 }
 
 + (void)commonShadowWithView:(UIView *)view {
-    view.layer.shadowColor = [UIColor colorWithWhite:0 alpha:0.2].CGColor;
-    view.layer.shadowOpacity = 1;
-    view.layer.shadowOffset = CGSizeMake(0.5, 0.5);
-    view.layer.masksToBounds = NO;
+    [self commonShadowWithLayer:view.layer];
+}
+
++ (void)commonShadowWithLayer:(CALayer *)layer {
+    layer.shadowColor = [UIColor colorWithWhite:0 alpha:0.4].CGColor;
+    layer.shadowOpacity = 1;
+    layer.shadowOffset = CGSizeMake(0.5, 0.5);
+    layer.masksToBounds = NO;
 }
 
 + (void)commonShadowWithView:(UIView *)view size:(CGSize)size {
     [self commonShadowWithView:view];
-    view.layer.shadowPath = [UIBezierPath bezierPathWithRect:(CGRect){CGPointZero, size}].CGPath;
+    [self commonShadowWithView:view size:size cornerRadius:0];
 }
 
 + (void)commonShadowWithView:(UIView *)view size:(CGSize)size cornerRadius:(CGFloat)cornerRadius {
     [self commonShadowWithView:view];
     view.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:(CGRect){CGPointZero, size} cornerRadius:cornerRadius].CGPath;
+}
+
++ (CAShapeLayer *)commonShadowShapeLayerWithSize:(CGSize)size cornerRadius:(float)cornerRadius {
+    CAShapeLayer *layer = [self shapeLayerWithSize:size cornerRadius:cornerRadius];
+    [self commonShadowWithLayer:layer];
+    return layer;
 }
 
 + (void)regulate:(UIView *)view cornerRadius:(CGFloat)cornerRadius {
@@ -142,6 +156,15 @@ BOOL SJ_is_iPhoneX(void) {
     shapeLayer.frame = bounds;
     shapeLayer.path = maskPath.CGPath;
     return shapeLayer;
+}
+
++ (CAShapeLayer *)shapeLayerWithSize:(CGSize)size cornerRadius:(float)cornerRadius {
+    CGRect bounds = (CGRect){CGPointZero, size};
+    CAShapeLayer *shapelayer = [CAShapeLayer layer];
+    shapelayer.bounds = bounds;
+    shapelayer.position = CGPointMake(size.width * 0.5, size.height * 0.5);
+    shapelayer.path = [UIBezierPath bezierPathWithRoundedRect:bounds cornerRadius:cornerRadius].CGPath;
+    return shapelayer;
 }
 
 @end
@@ -638,11 +661,7 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight {
 
 + (UIImageView *)imageViewWithImageName:(NSString *)imageName
                                viewMode:(UIViewContentMode)mode {
-    UIImageView *imageView = [UIImageView new];
-    if ( imageName ) imageView.image = [UIImage imageNamed:imageName];
-    imageView.contentMode = mode;
-    imageView.clipsToBounds = YES;
-    return imageView;
+    return [self imageViewWithImageName:imageName viewMode:mode backgroundColor:nil];
 }
 
 + (UIImageView *)imageViewWithImageName:(NSString *)imageName {
@@ -651,10 +670,54 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight {
 
 + (UIImageView *)imageViewWithBackgroundColor:(UIColor *)color
                                      viewMode:(UIViewContentMode)mode {
+    return [self imageViewWithImageName:nil viewMode:mode backgroundColor:color];
+}
+
++ (UIImageView *)imageViewWithImageName:(NSString *)imageName
+                               viewMode:(UIViewContentMode)mode
+                        backgroundColor:(UIColor *)color {
     UIImageView *imageView = [UIImageView new];
     imageView.contentMode = mode;
+    if ( color ) imageView.backgroundColor = color;
+    if ( imageName ) imageView.image = [UIImage imageNamed:imageName];
     imageView.clipsToBounds = YES;
-    imageView.backgroundColor = color;
+    return imageView;
+}
+
+@end
+
+
+
+#pragma mark - Shape Image View
+
+@interface SJShapeImageView : UIImageView
+@property (nonatomic, assign, readwrite) CGFloat cornerRadius;
+@end
+@implementation SJShapeImageView
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    _SJ_Round(self, _cornerRadius);
+}
+@end
+
+@implementation SJShapeImageViewFactory
+
++ (UIImageView *)imageViewWithCornerRadius:(float)cornerRadius {
+    return [self imageViewWithCornerRadius:cornerRadius imageName:nil];
+}
+
++ (UIImageView *)imageViewWithCornerRadius:(float)cornerRadius
+                                 imageName:(NSString *)imageName {
+    return [self imageViewWithCornerRadius:cornerRadius imageName:imageName viewMode:UIViewContentModeScaleAspectFill];
+}
+
++ (UIImageView *)imageViewWithCornerRadius:(float)cornerRadius
+                                 imageName:(NSString *)imageName
+                                  viewMode:(UIViewContentMode)mode {
+    SJShapeImageView *imageView = [[SJShapeImageView alloc] init];
+    imageView.cornerRadius = cornerRadius;
+    if ( imageView ) imageView.image = [UIImage imageNamed:imageName];
+    imageView.contentMode = mode;
     return imageView;
 }
 
@@ -666,26 +729,33 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight {
     return [self roundImageViewWithImageName:nil viewMode:mode];
 }
 
-+ (UIImageView *)roundImageViewWithImageName:(NSString *)imageName {
-    return [SJUIImageViewFactory roundImageViewWithImageName:imageName viewMode:UIViewContentModeScaleAspectFill];
++ (UIImageView *)roundImageViewWithBackgroundColor:(UIColor *)color {
+    return [self roundImageViewWithBackgroundColor:color viewMode:UIViewContentModeScaleAspectFill];
 }
 
 + (UIImageView *)roundImageViewWithBackgroundColor:(UIColor *)color
                                           viewMode:(UIViewContentMode)mode {
-    UIImageView *imageView = [SJRoundImageView new];
-    imageView.contentMode = mode;
-    imageView.backgroundColor = color;
-    return imageView;
+    return [self roundImageViewWithImageName:nil viewMode:mode backgroundColor:color];
+}
+
++ (UIImageView *)roundImageViewWithImageName:(NSString *)imageName {
+    return [self roundImageViewWithImageName:imageName viewMode:UIViewContentModeScaleAspectFill];
 }
 
 + (UIImageView *)roundImageViewWithImageName:(NSString *)imageName
                                     viewMode:(UIViewContentMode)mode {
-    UIImageView *imageView = [SJRoundImageView new];
-    if ( imageName ) imageView.image = [UIImage imageNamed:imageName];
-    imageView.contentMode = mode;
-    return imageView;
+    return [self roundImageViewWithImageName:imageName viewMode:mode backgroundColor:nil];
 }
 
++ (UIImageView *)roundImageViewWithImageName:(NSString *)imageName
+                                    viewMode:(UIViewContentMode)mode
+                             backgroundColor:(UIColor *)color {
+    SJShapeImageView *imageView = [SJShapeImageView new];
+    if ( imageName ) imageView.image = [UIImage imageNamed:imageName];
+    imageView.contentMode = mode;
+    if ( color ) imageView.backgroundColor = color;
+    return imageView;
+}
 @end
 
 

@@ -23,6 +23,12 @@
     imageView.center = self.view.center;
     [self.view addSubview:imageView];
     
+    [SJUIFactory commonShadowWithView:imageView size:imageView.csj_size cornerRadius:50];
+    
+    imageView.layer.shadowColor = [UIColor redColor].CGColor;
+    imageView.layer.shadowOpacity = 1;
+    imageView.layer.shadowOffset = CGSizeMake(0.5, 0.5);
+    imageView.layer.masksToBounds = NO;
     
     // Do any additional setup after loading the view, typically from a nib.
 }
