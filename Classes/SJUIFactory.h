@@ -55,6 +55,9 @@ extern BOOL SJ_is_iPhoneX(void);
 + (UIView *)viewWithBackgroundColor:(UIColor *)backgroundColor
                               frame:(CGRect)frame;
 
++ (UIView *)viewWithCornerRadius:(float)cornerRadius
+                 backgroundColor:(UIColor *)backgroundColor;
+
 + (__kindof UIView *)viewWithSubClass:(Class)subClass
                       backgroundColor:(UIColor *)backgroundColor;
 
@@ -67,6 +70,8 @@ extern BOOL SJ_is_iPhoneX(void);
 + (UIView *)lineViewWithHeight:(CGFloat)height
                      lineColor:(UIColor *)color;
 
++ (UIView *)shadowViewWithCornerRadius:(CGFloat)cornerRadius;
+
 @end
 
 
@@ -75,6 +80,10 @@ extern BOOL SJ_is_iPhoneX(void);
 
 + (UIScrollView *)scrollViewWithContentSize:(CGSize)contentSize
                               pagingEnabled:(BOOL)pagingEnabled;
+
++ (UIScrollView *)scrollViewWithSubClass:(Class)subClass
+                             contentSize:(CGSize)contentSize
+                           pagingEnabled:(BOOL)pagingEnabled;
 
 @end
 

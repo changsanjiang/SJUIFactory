@@ -171,6 +171,19 @@ static void _SJ_Round(UIView *view, float cornerRadius) {
 
 
 #pragma mark - UIView
+
+@interface SJShadowView : UIView
+@property (nonatomic, assign) CGFloat cornerRadius;
+@end
+
+@implementation SJShadowView
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    [SJUIFactory commonShadowWithView:self size:self.bounds.size cornerRadius:_cornerRadius];
+}
+@end
+
 @implementation SJUIViewFactory
 
 + (UIView *)viewWithBackgroundColor:(UIColor *)backgroundColor {
@@ -180,6 +193,14 @@ static void _SJ_Round(UIView *view, float cornerRadius) {
 + (UIView *)viewWithBackgroundColor:(UIColor *)backgroundColor frame:(CGRect)frame {
     UIView *view = [UIView new];
     [self _settingView:view backgroundColor:backgroundColor frame:frame];
+    return view;
+}
+
++ (UIView *)viewWithCornerRadius:(float)cornerRadius
+                 backgroundColor:(UIColor *)backgroundColor {
+    SJRoundView *view = [SJRoundView new];
+    view.cornerRadius = cornerRadius;
+    view.backgroundColor = backgroundColor;
     return view;
 }
 
@@ -215,6 +236,12 @@ static void _SJ_Round(UIView *view, float cornerRadius) {
     return view;
 }
 
++ (UIView *)shadowViewWithCornerRadius:(CGFloat)cornerRadius {
+    SJShadowView *view = [SJShadowView new];
+    view.cornerRadius = cornerRadius;
+    return view;
+}
+
 @end
 
 
@@ -225,6 +252,16 @@ static void _SJ_Round(UIView *view, float cornerRadius) {
 
 + (UIScrollView *)scrollViewWithContentSize:(CGSize)contentSize pagingEnabled:(BOOL)pagingEnabled {
     UIScrollView *scrollView = [UIScrollView new];
+    scrollView.contentSize = contentSize;
+    scrollView.pagingEnabled = pagingEnabled;
+    scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    return scrollView;
+}
+
++ (UIScrollView *)scrollViewWithSubClass:(Class)subClass
+                             contentSize:(CGSize)contentSize
+                           pagingEnabled:(BOOL)pagingEnabled {
+    UIScrollView *scrollView = [subClass new];
     scrollView.contentSize = contentSize;
     scrollView.pagingEnabled = pagingEnabled;
     scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
