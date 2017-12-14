@@ -18,17 +18,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
    
-    UIImageView *imageView = [SJUIImageViewFactory roundImageViewWithImageName:@"test"];
+    UIImageView *imageView = [SJShapeImageViewFactory imageViewWithCornerRadius:8 imageName:@"test"];
     imageView.csj_size = CGSizeMake(100, 100);
     imageView.center = self.view.center;
     [self.view addSubview:imageView];
     
-    [SJUIFactory commonShadowWithView:imageView size:imageView.csj_size cornerRadius:50];
-    
-    imageView.layer.shadowColor = [UIColor redColor].CGColor;
-    imageView.layer.shadowOpacity = 1;
-    imageView.layer.shadowOffset = CGSizeMake(0.5, 0.5);
-    imageView.layer.masksToBounds = NO;
+    imageView.layer.cornerRadius = 8;
+    imageView.layer.borderColor = [UIColor orangeColor].CGColor;
+    imageView.layer.borderWidth = 1;
     
     // Do any additional setup after loading the view, typically from a nib.
 }

@@ -327,7 +327,9 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight;
 @end
 
 
-/// backgroundColor default is clear.
+/*!
+ *  backgroundColor default is clear.
+ **/
 @interface SJShapeButtonFactory : NSObject
 
 + (UIButton *)buttonWithCornerRadius:(CGFloat)cornerRadius;
@@ -348,17 +350,20 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight;
 
 + (UIButton *)buttonWithCornerRadius:(CGFloat)cornerRadius
                                title:(NSString *)title
+                          titleColor:(UIColor *)titleColor
                               target:(id)target
                                  sel:(SEL)sel;
 
 + (UIButton *)buttonWithCornerRadius:(CGFloat)cornerRadius
                                title:(NSString *)title
+                          titleColor:(UIColor *)titleColor
                                 font:(UIFont *)font
                               target:(id)target
                                  sel:(SEL)sel;
 
 + (UIButton *)buttonWithCornerRadius:(CGFloat)cornerRadius
                                title:(NSString *)title
+                          titleColor:(UIColor *)titleColor
                                 font:(UIFont *)font
                               target:(id)target
                                  sel:(SEL)sel
