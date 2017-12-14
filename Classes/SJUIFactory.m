@@ -37,9 +37,11 @@ BOOL SJ_is_iPhoneX(void) {
 static void _SJ_Round(UIView *view, float cornerRadius) {
     if ( 0 != cornerRadius ) {
         view.layer.mask = [SJUIFactory shapeLayerWithSize:view.bounds.size cornerRadius:cornerRadius];
+        view.layer.cornerRadius = cornerRadius;
     }
     else {
         view.layer.mask = [SJUIFactory roundShapeLayerWithSize:view.bounds.size];
+        view.layer.cornerRadius = MIN(view.bounds.size.width, view.bounds.size.height) * 0.5;
     }
 }
 
@@ -115,7 +117,7 @@ static void _SJ_Round(UIView *view, float cornerRadius) {
 }
 
 + (void)commonShadowWithLayer:(CALayer *)layer {
-    layer.shadowColor = [UIColor colorWithWhite:0 alpha:0.4].CGColor;
+    layer.shadowColor = [UIColor colorWithWhite:0 alpha:0.2].CGColor;
     layer.shadowOpacity = 1;
     layer.shadowOffset = CGSizeMake(0, 0.2);
     layer.masksToBounds = NO;
@@ -552,7 +554,7 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight {
                           sel:(SEL)sel
                           tag:(NSInteger)tag {
     UIButton *btn = [UIButton new];
-    [self settingButtonWithBtn:btn font:[UIFont systemFontOfSize:14] title:nil titleColor:titleColor attributedTitle:nil imageName:nil backgroundColor:backgroundColor target:target sel:sel tag:tag];
+    [self settingButtonWithBtn:btn font:[UIFont systemFontOfSize:14] title:title titleColor:titleColor attributedTitle:nil imageName:imageName backgroundColor:backgroundColor target:target sel:sel tag:tag];
     return btn;
 }
 
@@ -717,27 +719,31 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight {
 
 + (UIButton *)buttonWithCornerRadius:(CGFloat)cornerRadius
                                title:(NSString *)title
+                          titleColor:(UIColor *)titleColor
                               target:(id)target
                                  sel:(SEL)sel {
-    return [self buttonWithCornerRadius:cornerRadius title:title font:[UIFont systemFontOfSize:14] target:target sel:sel];
+    return [self buttonWithCornerRadius:cornerRadius title:title titleColor:titleColor font:[UIFont systemFontOfSize:14] target:target sel:sel];
 }
 
 + (UIButton *)buttonWithCornerRadius:(CGFloat)cornerRadius
                                title:(NSString *)title
+                          titleColor:(UIColor *)titleColor
                                 font:(UIFont *)font
                               target:(id)target
                                  sel:(SEL)sel {
-    return [self buttonWithCornerRadius:cornerRadius title:title font:font target:target sel:sel tag:0];
+    return [self buttonWithCornerRadius:cornerRadius title:title titleColor:titleColor font:font target:target sel:sel tag:0];
 }
 
 + (UIButton *)buttonWithCornerRadius:(CGFloat)cornerRadius
                                title:(NSString *)title
+                          titleColor:(UIColor *)titleColor
                                 font:(UIFont *)font
                               target:(id)target
                                  sel:(SEL)sel
                                  tag:(NSInteger)tag {
     SJRoundButton *btn = (SJRoundButton *)[self buttonWithCornerRadius:cornerRadius backgroundColor:nil target:target sel:sel tag:tag];
     [btn setTitle:title forState:UIControlStateNormal];
+    [btn setTitleColor:titleColor forState:UIControlStateNormal];
     btn.titleLabel.font = font;
     return btn;
 }
