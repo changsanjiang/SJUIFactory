@@ -117,7 +117,7 @@ static void _SJ_Round(UIView *view, float cornerRadius) {
 + (void)commonShadowWithLayer:(CALayer *)layer {
     layer.shadowColor = [UIColor colorWithWhite:0 alpha:0.4].CGColor;
     layer.shadowOpacity = 1;
-    layer.shadowOffset = CGSizeMake(0.5, 0.5);
+    layer.shadowOffset = CGSizeMake(0, 0.2);
     layer.masksToBounds = NO;
 }
 
@@ -682,6 +682,66 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight {
 @end
 
 
+#pragma mark - Button CornerRadius
+
+@implementation SJShapeButtonFactory
+
++ (UIButton *)buttonWithCornerRadius:(CGFloat)cornerRadius {
+    return [self buttonWithCornerRadius:cornerRadius backgroundColor:nil];
+}
+
++ (UIButton *)buttonWithCornerRadius:(CGFloat)cornerRadius
+                     backgroundColor:(UIColor *)backgroundColor {
+    return [self buttonWithCornerRadius:cornerRadius backgroundColor:backgroundColor target:NULL sel:NULL tag:0];
+}
+
++ (UIButton *)buttonWithCornerRadius:(CGFloat)cornerRadius
+                     backgroundColor:(UIColor *)backgroundColor
+                              target:(id)target
+                                 sel:(SEL)sel {
+    return [self buttonWithCornerRadius:cornerRadius backgroundColor:backgroundColor target:target sel:sel tag:0];
+}
+
++ (UIButton *)buttonWithCornerRadius:(CGFloat)cornerRadius
+                     backgroundColor:(UIColor *)backgroundColor
+                              target:(id)target
+                                 sel:(SEL)sel
+                                 tag:(NSInteger)tag {
+    SJRoundButton *btn = [SJRoundButton new];
+    btn.cornerRadius = cornerRadius;
+    btn.backgroundColor = backgroundColor;
+    [btn addTarget:target action:sel forControlEvents:UIControlEventTouchUpInside];
+    btn.tag = tag;
+    return btn;
+}
+
++ (UIButton *)buttonWithCornerRadius:(CGFloat)cornerRadius
+                               title:(NSString *)title
+                              target:(id)target
+                                 sel:(SEL)sel {
+    return [self buttonWithCornerRadius:cornerRadius title:title font:[UIFont systemFontOfSize:14] target:target sel:sel];
+}
+
++ (UIButton *)buttonWithCornerRadius:(CGFloat)cornerRadius
+                               title:(NSString *)title
+                                font:(UIFont *)font
+                              target:(id)target
+                                 sel:(SEL)sel {
+    return [self buttonWithCornerRadius:cornerRadius title:title font:font target:target sel:sel tag:0];
+}
+
++ (UIButton *)buttonWithCornerRadius:(CGFloat)cornerRadius
+                               title:(NSString *)title
+                                font:(UIFont *)font
+                              target:(id)target
+                                 sel:(SEL)sel
+                                 tag:(NSInteger)tag {
+    SJRoundButton *btn = (SJRoundButton *)[self buttonWithCornerRadius:cornerRadius backgroundColor:nil target:target sel:sel tag:tag];
+    [btn setTitle:title forState:UIControlStateNormal];
+    btn.titleLabel.font = font;
+    return btn;
+}
+@end
 
 
 #pragma mark - UIImageVIew

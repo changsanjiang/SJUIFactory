@@ -81,9 +81,9 @@ extern BOOL SJ_is_iPhoneX(void);
 + (UIScrollView *)scrollViewWithContentSize:(CGSize)contentSize
                               pagingEnabled:(BOOL)pagingEnabled;
 
-+ (UIScrollView *)scrollViewWithSubClass:(Class)subClass
-                             contentSize:(CGSize)contentSize
-                           pagingEnabled:(BOOL)pagingEnabled;
++ (__kindof UIScrollView *)scrollViewWithSubClass:(Class)subClass
+                                      contentSize:(CGSize)contentSize
+                                    pagingEnabled:(BOOL)pagingEnabled;
 
 @end
 
@@ -324,7 +324,45 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight;
                                         sel:(SEL)sel
                                         tag:(NSInteger)tag;
 
+@end
 
+
+/// backgroundColor default is clear.
+@interface SJShapeButtonFactory : NSObject
+
++ (UIButton *)buttonWithCornerRadius:(CGFloat)cornerRadius;
+
++ (UIButton *)buttonWithCornerRadius:(CGFloat)cornerRadius
+                     backgroundColor:(UIColor *)backgroundColor;
+
++ (UIButton *)buttonWithCornerRadius:(CGFloat)cornerRadius
+                     backgroundColor:(UIColor *)backgroundColor
+                              target:(id)target
+                                 sel:(SEL)sel;
+
++ (UIButton *)buttonWithCornerRadius:(CGFloat)cornerRadius
+                     backgroundColor:(UIColor *)backgroundColor
+                              target:(id)target
+                                 sel:(SEL)sel
+                                 tag:(NSInteger)tag;
+
++ (UIButton *)buttonWithCornerRadius:(CGFloat)cornerRadius
+                               title:(NSString *)title
+                              target:(id)target
+                                 sel:(SEL)sel;
+
++ (UIButton *)buttonWithCornerRadius:(CGFloat)cornerRadius
+                               title:(NSString *)title
+                                font:(UIFont *)font
+                              target:(id)target
+                                 sel:(SEL)sel;
+
++ (UIButton *)buttonWithCornerRadius:(CGFloat)cornerRadius
+                               title:(NSString *)title
+                                font:(UIFont *)font
+                              target:(id)target
+                                 sel:(SEL)sel
+                                 tag:(NSInteger)tag;
 @end
 
 
