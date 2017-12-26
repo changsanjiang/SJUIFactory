@@ -6,5 +6,5 @@ target 'SJUIFactory' do
   # use_frameworks!
 
   # Pods for SJUIFactory
-  pod 'SJAttributesFactory'
+  pod 'SJLabel'
 end

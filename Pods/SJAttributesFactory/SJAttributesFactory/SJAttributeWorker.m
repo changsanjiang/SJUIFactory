@@ -7,7 +7,7 @@
 //
 
 #import "SJAttributeWorker.h"
-
+#import <CoreText/CoreText.h>
 
 @interface NSString (SJAdd)
 @end
@@ -24,6 +24,8 @@
 @property (nonatomic, strong, readonly) NSMutableAttributedString *attrM;
 @property (nonatomic, strong, readonly) NSMutableParagraphStyle *style;
 @property (nonatomic, strong, readonly) NSMutableDictionary<NSValue *, NSParagraphStyle *> *localParagraphStyleDictM;
+
+@property (nonatomic, assign, readwrite) NSRange lastInsertedRange;
 
 @property (nonatomic, strong, readwrite) UIFont *r_nextFont;
 @property (nonatomic, strong, readwrite) NSNumber *r_nextExpansion;
@@ -42,6 +44,9 @@
 @property (nonatomic, assign, readwrite) BOOL r_nextLink;
 @property (nonatomic, strong, readwrite) NSNumber *r_nextOffset;
 @property (nonatomic, strong, readwrite) NSNumber *r_nextObliqueness;
+@property (nonatomic, strong, readwrite) NSString *r_nextKey;
+@property (nonatomic, strong, readwrite) id r_nextValue;
+@property (nonatomic, copy, readwrite) void(^r_task)(NSRange range, NSAttributedString *matched);
 
 @end
 
@@ -73,7 +78,7 @@
     if ( _localParagraphStyleDictM ) {
         [_localParagraphStyleDictM enumerateKeysAndObjectsUsingBlock:^(NSValue * _Nonnull key, NSParagraphStyle * _Nonnull obj, BOOL * _Nonnull stop) {
             NSRange range = [key rangeValue];
-            [_attrM addAttribute:NSParagraphStyleAttributeName value:obj range:range];
+            if ( _rangeContains(_rangeAll(_attrM), range) ) [_attrM addAttribute:NSParagraphStyleAttributeName value:obj range:range];
         }];
     }
 }
@@ -85,6 +90,10 @@
 #pragma mark -
 - (SJAttributeWorker *(^)(UIFont *font))font {
     return ^ SJAttributeWorker *(UIFont *font) {
+        if ( !font ) {
+            _errorLog(@"Added Attribute Failed! param `font` is Empty!", _attrM.string);
+            return self;
+        }
         [_attrM addAttribute:NSFontAttributeName value:font range:_rangeAll(_attrM)];
         return self;
     };
@@ -99,6 +108,7 @@
 
 - (SJAttributeWorker *(^)(UIColor *))fontColor {
     return ^ SJAttributeWorker *(UIColor *fontColor) {
+        if ( !fontColor ) fontColor = [UIColor clearColor];
         [_attrM addAttribute:NSForegroundColorAttributeName value:fontColor range:_rangeAll(_attrM)];
         return self;
     };
@@ -106,6 +116,10 @@
 
 - (SJAttributeWorker *(^)(NSShadow *))shadow {
     return ^ SJAttributeWorker *(NSShadow *shadow) {
+        if ( !shadow ) {
+            _errorLog(@"Added Attribute Failed! param `shadow` is Empty!", _attrM.string);
+            return self;
+        }
         [_attrM addAttribute:NSShadowAttributeName value:shadow range:_rangeAll(_attrM)];
         return self;
     };
@@ -113,6 +127,7 @@
 
 - (SJAttributeWorker *(^)(UIColor *))backgroundColor {
     return ^ SJAttributeWorker *(UIColor *color) {
+        if ( !color ) color = [UIColor clearColor];
         [_attrM addAttribute:NSBackgroundColorAttributeName value:color range:_rangeAll(_attrM)];
         return self;
     };
@@ -183,6 +198,7 @@
 
 - (SJAttributeWorker * _Nonnull (^)(NSUnderlineStyle, UIColor * _Nonnull))underline {
     return ^ SJAttributeWorker *(NSUnderlineStyle style, UIColor *color) {
+        if ( !color ) color = [UIColor clearColor];
         [_attrM addAttribute:NSUnderlineStyleAttributeName value:@(style) range:_rangeAll(_attrM)];
         [_attrM addAttribute:NSUnderlineColorAttributeName value:color range:_rangeAll(_attrM)];
         return self;
@@ -191,6 +207,7 @@
 
 - (SJAttributeWorker * _Nonnull (^)(NSUnderlineStyle, UIColor * _Nonnull))strikethrough {
     return ^ SJAttributeWorker *(NSUnderlineStyle style, UIColor *color) {
+        if ( !color ) color = [UIColor clearColor];
         [_attrM addAttribute:NSStrikethroughStyleAttributeName value:@(style) range:_rangeAll(_attrM)];
         [_attrM addAttribute:NSStrikethroughColorAttributeName value:color range:_rangeAll(_attrM)];
         return self;
@@ -199,6 +216,7 @@
 
 - (SJAttributeWorker *(^)(float, UIColor *))stroke {
     return ^ SJAttributeWorker *(float border, UIColor *color) {
+        if ( !color ) color = [UIColor clearColor];
         [_attrM addAttribute:NSStrokeWidthAttributeName value:@(border) range:_rangeAll(_attrM)];
         [_attrM addAttribute:NSStrokeColorAttributeName value:color range:_rangeAll(_attrM)];
         return self;
@@ -221,6 +239,10 @@
 
 - (SJAttributeWorker *(^)(NSParagraphStyle *))paragraphStyle {
     return ^ SJAttributeWorker *(NSParagraphStyle *style) {
+        if ( !style ) {
+            _errorLog(@"Added Attribute Failed! param `style` is Empty!", _attrM.string);
+            return self;
+        }
         [_attrM addAttribute:NSParagraphStyleAttributeName value:style range:_rangeAll(_attrM)];
         return self;
     };
@@ -229,6 +251,28 @@
 - (SJAttributeWorker *(^)(float))obliqueness {
     return ^ SJAttributeWorker *(float obliqueness) {
         [_attrM addAttribute:NSObliquenessAttributeName value:@(obliqueness) range:_rangeAll(_attrM)];
+        return self;
+    };
+}
+
+- (SJAttributeWorker * _Nonnull (^)(NSString * _Nonnull, id _Nonnull))addAttribute {
+    return ^ SJAttributeWorker *(NSString *key, id value) {
+        if ( !key || !value ) {
+            _errorLog(@"Added Attribute Failed! param `key or value` is Empty!", _attrM.string);
+            return self;
+        }
+        [_attrM addAttribute:key value:value range:_rangeAll(_attrM)];
+        return self;
+    };
+}
+
+- (SJAttributeWorker * _Nonnull (^)(void (^ _Nonnull)(NSRange range, NSAttributedString *matched)))action {
+    return ^ SJAttributeWorker *(void(^action)(NSRange range, NSAttributedString *matched)) {
+        if ( !action ) {
+            _errorLog(@"Added `Action` Attribute Failed! param `task` is Empty!", _attrM.string);
+            return self;
+        }
+        [_attrM addAttribute:SJActionAttributeName value:action range:_rangeAll(_attrM)];
         return self;
     };
 }
@@ -245,11 +289,15 @@
 
 - (void (^)(NSRange))range {
     return ^(NSRange range) {
+        if ( !_rangeContains(_rangeAll(_attrM), range) ) {
+            _errorLog(@"Added Attribute Failed! param 'range' is unlawful!", _attrM.string);
+            return;
+        }
         if ( _r_nextFont ) {
             [_attrM addAttribute:NSFontAttributeName value:_r_nextFont range:range];
             _r_nextFont = nil;
         }
-        if ( _r_nextExpansion ) {
+        if ( nil != _r_nextExpansion ) {
             [_attrM addAttribute:NSExpansionAttributeName value:_r_nextExpansion range:range];
             _r_nextExpansion = nil;
         }
@@ -257,7 +305,7 @@
             [_attrM addAttribute:NSForegroundColorAttributeName value:_r_nextFontColor range:range];
             _r_nextFontColor = nil;
         }
-        if ( _r_nextUnderline ) {
+        if ( nil != _r_nextUnderline ) {
             [_attrM addAttribute:NSUnderlineStyleAttributeName value:_r_nextUnderline range:range];
             _r_nextUnderline = nil;
         }
@@ -269,11 +317,11 @@
             [_attrM addAttribute:NSBackgroundColorAttributeName value:_r_nextBackgroundColor range:range];
             _r_nextBackgroundColor = nil;
         }
-        if ( _r_nextLetterSpacing ) {
+        if ( nil != _r_nextLetterSpacing ) {
             [_attrM addAttribute:NSKernAttributeName value:_r_nextLetterSpacing range:range];
             _r_nextLetterSpacing = nil;
         }
-        if ( _r_nextStrikethough ) {
+        if ( nil != _r_nextStrikethough ) {
             [_attrM addAttribute:NSStrikethroughStyleAttributeName value:_r_nextStrikethough range:range];
             _r_nextStrikethough = nil;
         }
@@ -281,7 +329,7 @@
             [_attrM addAttribute:NSStrikethroughColorAttributeName value:_r_nextStrikethoughColor range:range];
             _r_nextStrikethoughColor = nil;
         }
-        if ( _r_nextStrokeBorder ) {
+        if ( nil != _r_nextStrokeBorder ) {
             [_attrM addAttribute:NSStrokeWidthAttributeName value:_r_nextStrokeBorder range:range];
             _r_nextStrokeBorder = nil;
         }
@@ -303,11 +351,11 @@
             [_attrM addAttribute:NSLinkAttributeName value:@(1) range:range];
             _r_nextLink = NO;
         }
-        if ( _r_nextOffset ) {
+        if ( nil != _r_nextOffset ) {
             [_attrM addAttribute:NSBaselineOffsetAttributeName value:_r_nextOffset range:range];
             _r_nextOffset = nil;
         }
-        if ( _r_nextObliqueness ) {
+        if ( nil != _r_nextObliqueness ) {
             [_attrM addAttribute:NSObliquenessAttributeName value:_r_nextObliqueness range:range];
             _r_nextObliqueness = nil;
         }
@@ -315,11 +363,24 @@
             [_attrM addAttribute:NSShadowAttributeName value:_r_nextShadow range:range];
             _r_nextShadow = nil;
         }
+        if ( _r_nextKey && _r_nextValue ) {
+            [_attrM addAttribute:_r_nextKey value:_r_nextValue range:range];
+            _r_nextKey = nil;
+            _r_nextValue = nil;
+        }
+        if ( _r_task ) {
+            [_attrM addAttribute:SJActionAttributeName value:_r_task range:range];
+            _r_task = nil;
+        }
     };
 }
 
 - (SJAttributeWorker *(^)(UIFont *font))nextFont {
     return ^ SJAttributeWorker *(UIFont *font) {
+        if ( !font ) {
+            _errorLog(@"Added Attribute Failed! param `nextFont` is Empty!", _attrM.string);
+            return self;
+        }
         _r_nextFont = font;
         return self;
     };
@@ -334,6 +395,7 @@
 
 - (SJAttributeWorker *(^)(UIColor *color))nextFontColor {
     return ^ SJAttributeWorker *(UIColor *fontColor) {
+        if ( !fontColor ) fontColor = [UIColor clearColor];
         _r_nextFontColor = fontColor;
         return self;
     };
@@ -341,6 +403,10 @@
 
 - (SJAttributeWorker *(^)(NSShadow *))nextShadow {
     return ^ SJAttributeWorker *(NSShadow *nextShadow) {
+        if ( !nextShadow ) {
+            _errorLog(@"Added Attribute Failed! param `nextShadow` is Empty!", _attrM.string);
+            return self;
+        }
         _r_nextShadow = nextShadow;
         return self;
     };
@@ -348,6 +414,7 @@
 
 - (SJAttributeWorker *(^)(UIColor *))nextBackgroundColor {
     return ^ SJAttributeWorker *(UIColor *color) {
+        if ( !color ) color = [UIColor clearColor];
         _r_nextBackgroundColor = color;
         return self;
     };
@@ -411,6 +478,7 @@
 
 - (SJAttributeWorker * _Nonnull (^)(NSUnderlineStyle, UIColor * _Nonnull))nextUnderline {
     return ^ SJAttributeWorker *(NSUnderlineStyle style, UIColor *color) {
+        if ( !color ) color = [UIColor clearColor];
         _r_nextUnderline = @(style);
         _r_nextUnderlineColor = color;
         return self;
@@ -419,6 +487,7 @@
 
 - (SJAttributeWorker * _Nonnull (^)(NSUnderlineStyle, UIColor * _Nonnull))nextStrikethough {
     return ^ SJAttributeWorker *(NSUnderlineStyle style, UIColor *color) {
+        if ( !color ) color = [UIColor clearColor];
         _r_nextStrikethough = @(style);
         _r_nextStrikethoughColor = color;
         return self;
@@ -427,6 +496,7 @@
 
 - (SJAttributeWorker *(^)(float, UIColor *))nextStroke {
     return ^ SJAttributeWorker *(float border, UIColor *color){
+        if ( !color ) color = [UIColor clearColor];
         _r_nextStrokeBorder = @(border);
         _r_nextStrokeColor = color;
         return self;
@@ -461,11 +531,32 @@
     };
 }
 
+- (SJAttributeWorker * _Nonnull (^)(NSString * _Nonnull, id _Nonnull))next {
+    return ^ SJAttributeWorker *(NSString *key, id value) {
+        _r_nextKey = key;
+        _r_nextValue = value;
+        return self;
+    };
+}
+
+- (SJAttributeWorker * _Nonnull (^)(void (^ _Nonnull)(NSRange range, NSAttributedString *matched)))nextAction {
+    return ^ SJAttributeWorker *(void(^task)(NSRange range, NSAttributedString *matched)) {
+        _r_task = task;
+        return self;
+    };
+}
+
 #pragma mark -
 
 - (SJAttributeWorker *(^)(UIImage *, NSInteger, CGPoint, CGSize))insertImage {
     return ^ SJAttributeWorker *(UIImage *image, NSInteger index, CGPoint offset, CGSize size) {
-        if ( -1 == index ) index = _attrM.length;
+        if ( !image ) {
+            _errorLog(@"Insert Failed! param `image` is Empty!", _attrM.string);
+            return self;
+        }
+        
+        if ( -1 == index || index > _attrM.length ) index = _attrM.length;
+        
         NSTextAttachment *attachment = [[NSTextAttachment alloc] initWithData:nil ofType:nil];
         attachment.image = image;
         attachment.bounds = CGRectMake(offset.x, offset.y, size.width, size.height);
@@ -476,40 +567,59 @@
 
 - (SJAttributeWorker * _Nonnull (^)(NSAttributedString * _Nonnull, NSInteger))insertAttr {
     return ^ SJAttributeWorker *(NSAttributedString *attr, NSInteger index) {
-        if ( -1 == index ) index = _attrM.length;
+        if ( !attr ) {
+            _errorLog(@"Insert Failed! param `attr` is Empty!", _attrM.string);
+            return self;
+        }
+        if ( -1 == index || index > _attrM.length ) index = _attrM.length;
         [_attrM insertAttributedString:attr atIndex:index];
+        _lastInsertedRange = NSMakeRange(index, attr.length);
         return self;
     };
 }
 
 - (SJAttributeWorker * _Nonnull (^)(NSString * _Nonnull, NSInteger))insertText {
     return ^ SJAttributeWorker *(NSString *text, NSInteger index) {
-        if ( -1 == index ) index = _attrM.length;
+        if ( !text ) {
+            _errorLog(@"Insert Failed! param `text` is Empty!", _attrM.string);
+            return self;
+        }
+        if ( -1 == index || index > _attrM.length ) index = _attrM.length;
         self.insertAttr([[NSAttributedString alloc] initWithString:text], index);
         return self;
     };
 }
 
-- (SJAttributeWorker * _Nonnull (^)(id _Nonnull, ...))insert {
-    return ^ SJAttributeWorker *(id insert, ...) {
+- (SJAttributeWorker * _Nonnull (^)(id, NSInteger, ...))insert {
+    return ^ SJAttributeWorker *(id insert, NSInteger index, ...) {
         va_list args;
-        va_start(args, insert);
+        va_start(args, index);
         if      ( [insert isKindOfClass:[NSString class]] ) {
-            self.insertText(insert, va_arg(args, NSInteger));
+            self.insertText(insert, index);
         }
         else if ( [insert isKindOfClass:[NSAttributedString class]] ) {
-            self.insertAttr(insert, va_arg(args, NSInteger));
+            self.insertAttr(insert, index);
         }
         else if ( [insert isKindOfClass:[UIImage class]] ) {
-            self.insertImage(insert, va_arg(args, NSInteger), va_arg(args, CGPoint), va_arg(args, CGSize));
+            self.insertImage(insert, index, va_arg(args, CGPoint), va_arg(args, CGSize));
         }
         va_end(args);
         return self;
     };
 }
 
+- (SJAttributeWorker * _Nonnull (^)(void (^ _Nonnull)(SJAttributeWorker * _Nonnull)))lastInserted {
+    return ^ SJAttributeWorker *(void(^task)(SJAttributeWorker *worker)) {
+        return self.rangeEdit(_lastInsertedRange, task);
+    };
+}
+
 - (SJAttributeWorker * _Nonnull (^)(NSRange, id value))replace {
     return ^ SJAttributeWorker *(NSRange range, id value) {
+        if ( 0 == [value length] ) {
+            _errorLog(@"Added Attribute Failed! param `value` is Empty!", _attrM.string);
+            return self;
+        }
         if ( [value isKindOfClass:[NSString class]] ) {
             [_attrM replaceCharactersInRange:range withString:value];
         }
@@ -535,6 +645,10 @@
 
 - (SJAttributeWorker * _Nonnull (^)(NSRange))removeText {
     return ^ SJAttributeWorker *(NSRange range) {
+        if ( !_rangeContains(_rangeAll(_attrM), range) ) {
+            _errorLog(@"Delete Text Failed! param 'range' is unlawful!", _attrM.string);
+            return self;
+        }
         [_attrM deleteCharactersInRange:range];
         return self;
     };
@@ -542,6 +656,14 @@
 
 - (SJAttributeWorker * _Nonnull (^)(NSAttributedStringKey _Nonnull, NSRange))removeAttribute {
     return ^ SJAttributeWorker *(NSAttributedStringKey key, NSRange range) {
+        if ( 0 == key.length ) {
+            _errorLog(@"Remove Attr Failed! param 'key' is Empty!", _attrM.string);
+            return self;
+        }
+        if ( !_rangeContains(_rangeAll(_attrM), range) ) {
+            _errorLog(@"Remove Attr Failed! param 'range' is unlawful!", _attrM.string);
+            return self;
+        }
         [_attrM removeAttribute:key range:range];
         return self;
     };
@@ -560,9 +682,9 @@
 }
 
 #pragma mark -
-- (SJAttributeWorker * _Nonnull (^)(NSString * _Nonnull, void (^ _Nonnull)(SJAttributeWorker * _Nonnull)))regexp {
+- (SJAttributeWorker * _Nonnull (^)(NSString * _Nonnull, void (^ _Nonnull)(SJAttributeWorker *)))regexp {
     return ^ SJAttributeWorker *(NSString *ex, void(^task)(SJAttributeWorker *worker)) {
-        self.regexpRanges(ex, ^(NSArray<NSValue *> * _Nonnull ranges) {
+        self.regexpRanges(ex, ^(NSArray<NSValue *> * __nullable ranges) {
             [ranges enumerateObjectsUsingBlock:^(NSValue * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 task(self);
                 self.range(obj.rangeValue);
@@ -572,15 +694,19 @@
     };
 }
 
-- (SJAttributeWorker * _Nonnull (^)(NSString * _Nonnull, void (^ _Nonnull)(NSArray<NSValue *> * _Nonnull)))regexpRanges {
+- (SJAttributeWorker * _Nonnull (^)(NSString * _Nonnull, void (^ _Nonnull)(NSArray<NSValue *> *)))regexpRanges {
     return ^ SJAttributeWorker *(NSString *ex, void(^task)(NSArray<NSValue *> *ranges)) {
+        NSMutableArray<NSValue *> *rangesM = [NSMutableArray new];
+        if ( 0 == ex.length ) {
+            _errorLog([NSString stringWithFormat:@"Exe Regular Expression Failed! param `ex` is empty!"], _attrM.string);
+            task(rangesM);
+            return self;
+        }
         NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:ex options:kNilOptions error:nil];
-        NSMutableArray *rangesM = [NSMutableArray new];
         [regex enumerateMatchesInString:_attrM.string options:NSMatchingWithoutAnchoringBounds range:_rangeAll(_attrM) usingBlock:^(NSTextCheckingResult * _Nullable result, NSMatchingFlags flags, BOOL * _Nonnull stop) {
             [rangesM addObject:[NSValue valueWithRange:result.range]];
         }];
-        if ( 0 != rangesM.count ) task(rangesM);
-        else task(nil);
+        task(rangesM);
         return self;
     };
 }
@@ -628,7 +754,8 @@ inline static BOOL _isStrOrAttrStr(id target) {
             isSetFont = YES;
             *stop = YES;
         }];
-        NSAssert(isSetFont, @"You need to set it font! Range = %@", NSStringFromRange(range));
+        
+        if ( !isSetFont ) _errorLog([NSString stringWithFormat:@"Get Bounds Failed! You need to set it font! \nRange = %@", NSStringFromRange(range)], _attrM.string);
     }];
     CGRect bounds = [attr boundingRectWithSize:CGSizeMake(width, height) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading context:nil];
     bounds.size.width = ceil(bounds.size.width);
@@ -638,6 +765,10 @@ inline static BOOL _isStrOrAttrStr(id target) {
 
 - (NSAttributedString * _Nonnull (^)(NSRange))attrStrByRange {
     return ^ NSAttributedString *(NSRange range) {
+        if ( !_rangeContains(_rangeAll(_attrM), range) ) {
+            _errorLog(@"Get AttrStr Failed! param 'range' is unlawful!", _attrM.string);
+            return nil;
+        }
         [self _pauseTask];
         NSAttributedString *attr = [_attrM attributedSubstringFromRange:range];
         return attr;
@@ -648,6 +779,14 @@ inline static BOOL _isStrOrAttrStr(id target) {
 
 inline static NSRange _rangeAll(NSAttributedString *attr) {
     return NSMakeRange(0, attr.length);
+}
+
+inline static BOOL _rangeContains(NSRange range, NSRange range2) {
+    return range.location <= range2.location && range.length >= range2.length;
+}
+
+inline static void _errorLog(NSString *msg, NSString *target) {
+    NSLog(@"\n__Error__: %@\nTarget: %@", msg, target);
 }
 
 - (NSMutableParagraphStyle *)style {
@@ -669,3 +808,4 @@ inline static NSRange _rangeAll(NSAttributedString *attr) {
 }
 
 @end
+

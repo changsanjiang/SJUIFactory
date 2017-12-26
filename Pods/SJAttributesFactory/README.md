@@ -3,9 +3,30 @@
 ```ruby
   pod 'SJAttributesFactory'
 ```
-另外关于富文本的属性介绍, 请查看:
+### 最新动态:
+- 增加了一个可以匹配点击动作的 Label.
+
+### 最近更新:
+- 添加了一个编辑最近(lastInserted)插入的文本的方法.
+- 完善参数错误的相关提示
+- 修复了insert方法插入-1时的Bug
+- 增加了正则相关的方法
+- 新增了一个替换方法
+- 新增了一个范围获取AttrStr的方法
+- 添加了HeaderFile, 方便导入头文件
+- 添加了第二种范围编辑Method
+- 修复了Size方法的Bug
+- 增加了对范围段落Style编辑的方法
+- 改变了项目结构, 使其更合逻辑(变更较大)
+- 新增可变参(insert)插入方法   
+
+
+附 富文本属性:
 http://www.jianshu.com/p/ebbcfc24f9cb
 ___
+### 可匹配点击的Label:
+<img src="https://github.com/changsanjiang/SJAttributesFactory/blob/master/Demo/SJAttributesFactory/action.gif" />
+
 ### 上下图文效果:
 ![上下图文.jpg](http://upload-images.jianshu.io/upload_images/2318691-e92f48d24e29ae61.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
