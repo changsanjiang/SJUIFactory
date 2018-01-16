@@ -1140,7 +1140,7 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight {
         return;
     }
     
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle: 0 == title.length ? nil : title message:0 == msg.length ? nil : msg preferredStyle:UIAlertControllerStyleActionSheet];
     
     [otherActions enumerateObjectsUsingBlock:^(SJUIImagePickerAction * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         UIAlertAction *action = [UIAlertAction actionWithTitle:obj.title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
