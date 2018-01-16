@@ -211,14 +211,6 @@ static void _SJ_Round(UIView *view, float cornerRadius) {
     return view;
 }
 
-+ (UIView *)viewWithCornerRadius:(float)cornerRadius
-                 backgroundColor:(UIColor *)backgroundColor {
-    SJRoundView *view = [SJRoundView new];
-    view.cornerRadius = cornerRadius;
-    view.backgroundColor = backgroundColor;
-    return view;
-}
-
 + (__kindof UIView *)viewWithSubClass:(Class)subClass
                       backgroundColor:(UIColor *)backgroundColor {
     return [self viewWithSubClass:subClass backgroundColor:backgroundColor frame:CGRectZero];
@@ -262,10 +254,10 @@ static void _SJ_Round(UIView *view, float cornerRadius) {
 
 @implementation SJShapeViewFactory
 
-+ (UIView *)viewWithCornerRadius:(CGFloat)cornerRaius
++ (UIView *)viewWithCornerRadius:(float)cornerRadius
                  backgroundColor:(UIColor *)backgroundColor {
-    SJShadowView *view = [SJShadowView new];
-    view.cornerRadius = cornerRaius;
+    SJRoundView *view = [SJRoundView new];
+    view.cornerRadius = cornerRadius;
     view.backgroundColor = backgroundColor;
     return view;
 }
@@ -812,7 +804,7 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight {
     SJRoundButton *btn = [SJRoundButton new];
     btn.cornerRadius = cornerRadius;
     btn.backgroundColor = backgroundColor;
-    [btn addTarget:target action:sel forControlEvents:UIControlEventTouchUpInside];
+    if ( target ) [btn addTarget:target action:sel forControlEvents:UIControlEventTouchUpInside];
     btn.tag = tag;
     return btn;
 }
@@ -1066,6 +1058,18 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight {
 
 #pragma mark - UIImagePickerController
 
+@implementation SJUIImagePickerAction
+
+- (instancetype)initWithTitle:(NSString *)title action:(void(^)(SJUIImagePickerAction *action))action {
+    self = [super init];
+    if ( !self ) return nil;
+    _title = title;
+    _action = action;
+    return self;
+}
+
+@end
+
 @interface SJUIImagePickerControllerFactory ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @end
 
@@ -1083,6 +1087,15 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight {
 - (void)alterPickerViewControllerWithController:(UIViewController *)controller
                                      alertTitle:(NSString *)title
                                             msg:(NSString *)msg
+                                   photoLibrary:(void(^)(UIImage *selectedImage))photoLibraryBlock
+                                         camera:(void(^)(UIImage *selectedImage))cameraBlock {
+    [self alterPickerViewControllerWithController:controller alertTitle:title msg:msg actions:nil photoLibrary:photoLibraryBlock camera:cameraBlock];
+}
+
+- (void)alterPickerViewControllerWithController:(UIViewController *)controller
+                                     alertTitle:(NSString *)title
+                                            msg:(NSString *)msg
+                                        actions:(NSArray<SJUIImagePickerAction *> *)otherActions
                                    photoLibrary:(void(^)(UIImage *selectedImage))photoLibraryBlock
                                          camera:(void(^)(UIImage *selectedImage))cameraBlock {
     NSMutableArray<NSString *> *titlesM = [NSMutableArray new];
@@ -1128,6 +1141,13 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight {
     }
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:msg preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    [otherActions enumerateObjectsUsingBlock:^(SJUIImagePickerAction * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        UIAlertAction *action = [UIAlertAction actionWithTitle:obj.title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            if ( obj.action ) obj.action(obj);
+        }];
+        [alertController addAction:action];
+    }];
     
     // actions
     [titlesM enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

@@ -57,9 +57,6 @@ extern BOOL SJ_is_iPhoneX(void);
 + (UIView *)viewWithBackgroundColor:(UIColor *)backgroundColor
                               frame:(CGRect)frame;
 
-+ (UIView *)viewWithCornerRadius:(float)cornerRadius
-                 backgroundColor:(UIColor *)backgroundColor;
-
 + (__kindof UIView *)viewWithSubClass:(Class)subClass
                       backgroundColor:(UIColor *)backgroundColor;
 
@@ -77,9 +74,10 @@ extern BOOL SJ_is_iPhoneX(void);
 @end
 
 #pragma mark -
+
 @interface SJShapeViewFactory : NSObject
 
-+ (UIView *)viewWithCornerRadius:(CGFloat)cornerRaius
++ (UIView *)viewWithCornerRadius:(float)cornerRadius
                  backgroundColor:(UIColor *)backgroundColor;
 
 @end
@@ -530,6 +528,16 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight;
 
 
 #pragma mark -
+
+@interface SJUIImagePickerAction : NSObject
+
+@property (nonatomic, strong, readonly) NSString *title;
+@property (nonatomic, copy, readonly) void(^action)(SJUIImagePickerAction *action);
+
+- (instancetype)initWithTitle:(NSString *)title action:(void(^)(SJUIImagePickerAction *action))action;
+
+@end
+
 @interface SJUIImagePickerControllerFactory : NSObject
 
 + (instancetype)shared;
@@ -539,6 +547,14 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight;
                                             msg:(NSString *)msg
                                    photoLibrary:(void(^)(UIImage *selectedImage))photoLibraryBlock
                                          camera:(void(^)(UIImage *selectedImage))cameraBlock;
+
+- (void)alterPickerViewControllerWithController:(UIViewController *)controller
+                                     alertTitle:(NSString *)title
+                                            msg:(NSString *)msg
+                                        actions:(NSArray<SJUIImagePickerAction *> *)otherActions
+                                   photoLibrary:(void(^)(UIImage *selectedImage))photoLibraryBlock
+                                         camera:(void(^)(UIImage *selectedImage))cameraBlock;
+
 @end
 
 
