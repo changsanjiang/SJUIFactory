@@ -531,15 +531,6 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight;
 
 #pragma mark -
 
-@interface SJUIImagePickerAction : NSObject
-
-@property (nonatomic, strong, readonly) NSString *title;
-@property (nonatomic, copy, readonly) void(^action)(SJUIImagePickerAction *action);
-
-- (instancetype)initWithTitle:(NSString *)title action:(void(^)(SJUIImagePickerAction *action))action;
-
-@end
-
 @interface SJUIImagePickerControllerFactory : NSObject
 
 + (instancetype)shared;
@@ -553,7 +544,7 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight;
 - (void)alterPickerViewControllerWithController:(UIViewController *)controller
                                      alertTitle:(NSString * __nullable )title
                                             msg:(NSString * __nullable )msg
-                                        actions:(NSArray<SJUIImagePickerAction *> * __nullable )otherActions
+                                        actions:(NSArray<UIAlertAction *> * __nullable )otherActions
                                    photoLibrary:(void(^)(UIImage *selectedImage))photoLibraryBlock
                                          camera:(void(^)(UIImage *selectedImage))cameraBlock;
 

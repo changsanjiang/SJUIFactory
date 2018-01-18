@@ -42,11 +42,9 @@ static void _SJ_Round(UIView *view, float cornerRadius) {
     [CATransaction setDisableActions:YES];
     if ( 0 != cornerRadius ) {
         view.layer.mask = [SJUIFactory shapeLayerWithSize:view.bounds.size cornerRadius:cornerRadius];
-        view.layer.cornerRadius = cornerRadius;
     }
     else {
         view.layer.mask = [SJUIFactory roundShapeLayerWithSize:view.bounds.size];
-        view.layer.cornerRadius = MIN(view.bounds.size.width, view.bounds.size.height) * 0.5;
     }
     [CATransaction commit];
 }
@@ -143,6 +141,7 @@ static void _SJ_Round(UIView *view, float cornerRadius) {
 
 + (void)commonShadowWithView:(UIView *)view size:(CGSize)size cornerRadius:(CGFloat)cornerRadius {
     [self commonShadowWithView:view];
+    view.layer.cornerRadius = cornerRadius;
     view.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:(CGRect){CGPointZero, size} cornerRadius:cornerRadius].CGPath;
 }
 
@@ -179,6 +178,7 @@ static void _SJ_Round(UIView *view, float cornerRadius) {
     shapelayer.bounds = bounds;
     shapelayer.position = CGPointMake(size.width * 0.5, size.height * 0.5);
     shapelayer.path = [UIBezierPath bezierPathWithRoundedRect:bounds cornerRadius:cornerRadius].CGPath;
+    shapelayer.fillColor = [UIColor blackColor].CGColor;
     return shapelayer;
 }
 
@@ -1058,18 +1058,6 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight {
 
 #pragma mark - UIImagePickerController
 
-@implementation SJUIImagePickerAction
-
-- (instancetype)initWithTitle:(NSString *)title action:(void(^)(SJUIImagePickerAction *action))action {
-    self = [super init];
-    if ( !self ) return nil;
-    _title = title;
-    _action = action;
-    return self;
-}
-
-@end
-
 @interface SJUIImagePickerControllerFactory ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @end
 
@@ -1095,7 +1083,7 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight {
 - (void)alterPickerViewControllerWithController:(UIViewController *)controller
                                      alertTitle:(NSString *)title
                                             msg:(NSString *)msg
-                                        actions:(NSArray<SJUIImagePickerAction *> *)otherActions
+                                        actions:(NSArray<UIAlertAction *> *)otherActions
                                    photoLibrary:(void(^)(UIImage *selectedImage))photoLibraryBlock
                                          camera:(void(^)(UIImage *selectedImage))cameraBlock {
     NSMutableArray<NSString *> *titlesM = [NSMutableArray new];
@@ -1142,10 +1130,7 @@ estimatedSectionFooterHeight:(CGFloat)estimatedSectionFooterHeight {
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle: 0 == title.length ? nil : title message:0 == msg.length ? nil : msg preferredStyle:UIAlertControllerStyleActionSheet];
     
-    [otherActions enumerateObjectsUsingBlock:^(SJUIImagePickerAction * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        UIAlertAction *action = [UIAlertAction actionWithTitle:obj.title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            if ( obj.action ) obj.action(obj);
-        }];
+    [otherActions enumerateObjectsUsingBlock:^(UIAlertAction * _Nonnull action, NSUInteger idx, BOOL * _Nonnull stop) {
         [alertController addAction:action];
     }];
     
