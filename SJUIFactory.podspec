@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "SJUIFactory"
-  s.version      = "0.0.13"
+  s.version      = "0.0.14"
   s.summary      = "make view."
 
   # This description is used to generate tags and improve search results.
@@ -135,7 +135,5 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-
-  s.dependency "SJLabel"
 
 end
